@@ -3,31 +3,22 @@
     {
       "id": "1",
       "name": "Charles Bonito",
-      "company": "Intrum",
       "email": "charles.bonito@intrum.com",
       "phone": "+44123456789",
-      "logo": "/intrum.png",
-      "industry": "Debt Purchaser",
       "debt_amount": "£1,234.56"
     },
     {
       "id": "2",
       "name": "David Bowie",
-      "company": "Octopus",
       "email": "david.bowie@octopus.com",
       "phone": "+44987654321",
-      "logo": "/octopus.png",
-      "industry": "Energy",
       "debt_amount": "£120.32"
     },
     {
       "id": "3",
       "name": "Ziggy Stardust",
-      "company": "Clearpay",
       "email": "ziggy.stardust@clearpay.com",
       "phone": "+44555555555",
-      "logo": "/clearpay.png",
-      "industry": "BNPL",
       "debt_amount": "£1,234.56"
     }
   ]

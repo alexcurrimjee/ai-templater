@@ -1,24 +1,22 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import customersData from '../templates/customers.json';
 
 interface Customer {
   id: string;
   name: string;
-  company: string;
   email: string;
   phone: string;
-  logo: string;
+  debt_amount: string;
 }
 
 interface CustomerCardProps {
   customer: Customer | null;
-  onEdit: () => void;
+  onEdit: (customer: Customer) => void;
 }
 
 const getInitials = (name: string | undefined | null): string => {
   if (!name) return '';
-
   return name
     .split(' ')
     .map((part) => part[0])
@@ -28,27 +26,43 @@ const getInitials = (name: string | undefined | null): string => {
 };
 
 export function CustomerCard({ customer, onEdit }: CustomerCardProps) {
-  if (!customer) return null;
-
-  const initials = getInitials(customer.name);
-  const displayName = `${customer.name} - ${customer.company}`;
+  const handleValueChange = (customerId: string) => {
+    const selectedCustomer = customersData.customers.find((c) => c.id === customerId);
+    if (selectedCustomer) {
+      onEdit(selectedCustomer);
+    }
+  };
 
   return (
-    <Card className='w-full mb-6 border-gray-200 shadow-none'>
-      <CardContent className='p-4 flex justify-between items-center'>
-        <div className='flex items-center gap-4'>
-          <Avatar className='h-11 w-11'>
-            <AvatarImage src={customer.logo} />
-          </Avatar>
-          <div className='flex flex-col'>
-            <p className='text-xl font-medium'>{customer.name}</p>
-            <p className='text-lg text-gray-400 font-light'>{customer.company}</p>
-          </div>
-        </div>
-        <Button variant='ghost' size='sm' onClick={onEdit}>
-          Edit
-        </Button>
-      </CardContent>
-    </Card>
+    <div className='w-full'>
+      <Select defaultValue={customer?.id} onValueChange={handleValueChange}>
+        <SelectTrigger className='w-full bg-gray-50 hover:bg-white transition'>
+          <SelectValue placeholder='Select a customer'>
+            {customer && (
+              <div className='flex items-center gap-2'>
+                <div className='flex flex-col'>
+                  <p className='text-sm font-medium'>{customer.name}</p>
+                </div>
+              </div>
+            )}
+          </SelectValue>
+        </SelectTrigger>
+        <SelectContent>
+          {customersData.customers.map((c) => (
+            <SelectItem key={c.id} value={c.id}>
+              <div className='flex items-center gap-2'>
+                <Avatar className='h-8 w-8'>
+                  <AvatarFallback className='text-xs bg-primary/15'>{getInitials(c.name)}</AvatarFallback>
+                </Avatar>
+                <div className='flex flex-col'>
+                  <p className='text-sm font-medium'>{c.name}</p>
+                  <p className='text-sm text-gray-500'>{c.debt_amount}</p>
+                </div>
+              </div>
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
   );
 }

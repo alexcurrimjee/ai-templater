@@ -1,0 +1,25 @@
+{
+  "clients": [
+    {
+      "id": "1",
+      "name": "Octopus",
+      "logo": "./src/assets/octopus.png",
+      "website": "https://octopus.energy/",
+      "industry": "Energy"
+    },
+    {
+      "id": "2",
+      "name": "Intrum",
+      "logo": "./src/assets/intrum.png",
+      "website": "https://www.intrum.com/",
+      "industry": "Debt purchaser"
+    },
+    {
+      "id": "3",
+      "name": "Clearpay",
+      "logo": "./src/assets/clearpay.png",
+      "website": "https://www.clearpay.co.uk/",
+      "industry": "BNPL"
+    }
+  ]
+}

@@ -1,12 +1,15 @@
 import { Body, Button, Container, Head, Heading, Hr, Html, Img, Link, Preview, Section, Text, Tailwind } from '@react-email/components';
+import type { Customer, Client, ClientName } from '../App';
 
 interface OctopusEmailProps {
-  authorName: string;
-  authorImage: string;
-  reviewText: string;
+  selectedClient: ClientName;
+  customer: Customer | null;
+  clients: Client[];
 }
 
-const OctopusEmail = ({ authorName, authorImage, reviewText }: OctopusEmailProps) => {
+const OctopusEmail = ({ selectedClient, customer, clients }: OctopusEmailProps) => {
+  if (!customer) return null;
+
   return (
     <Tailwind>
       <Html>
@@ -34,13 +37,17 @@ const OctopusEmail = ({ authorName, authorImage, reviewText }: OctopusEmailProps
                 />
               </Section>
               <Section style={box}>
-                <Text style={paragraph}>Hi Paul,</Text>
+                <Text style={paragraph}>Hi {customer.name},</Text>
                 <Text style={paragraph}>
                   We're{' '}
                   <Link style={anchor} href='https://www.ophelos.com'>
                     Ophelos
                   </Link>{' '}
-                  — here to help you clear your Energy debt with Octopus.
+                  — here to help you clear your {customer.debt_amount} debt with{' '}
+                  <Link style={anchor} href={clients.find((client) => client.name === selectedClient)?.website}>
+                    {selectedClient}
+                  </Link>
+                  .
                 </Text>
                 <Text style={paragraph}>We want to help you find a solution that works on your terms and timescales.</Text>
 

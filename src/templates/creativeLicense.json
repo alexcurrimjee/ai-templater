@@ -1,0 +1,29 @@
+{
+  "levels": [
+    {
+      "id": "1",
+      "instruction": "Keep extremely close to the original template. Only make essential adjustments for accuracy.",
+      "description": "Conservative: Minimal changes to the template"
+    },
+    {
+      "id": "2",
+      "instruction": "Stay very close to the original template but allow for minor improvements in flow and readability. You can make small adjustments to improve clarity or engagement, but maintain the overall structure and key messages. Keep the same tone and style, with only slight variations where it enhances the message.",
+      "description": "Subtle: Minor refinements allowed"
+    },
+    {
+      "id": "3",
+      "instruction": "Use the template as a strong foundation but feel free to enhance it. You can rephrase sections to improve engagement while keeping the core message and structure. Maintain the general flow but add your own touch to make it more compelling. The key messages should remain the same but can be expressed in fresh ways.",
+      "description": "Balanced: Moderate creativity while respecting template"
+    },
+    {
+      "id": "4",
+      "instruction": "Use the template as inspiration but feel free to be creative. You can significantly rephrase content, adjust the structure, and enhance the messaging while keeping the core purpose. Feel free to add new elements or sections if they enhance the message. The tone can be adjusted to better suit the context while maintaining professionalism.",
+      "description": "Creative: Significant creative freedom"
+    },
+    {
+      "id": "5",
+      "instruction": "Use the template only as a reference for the core message and objective. You have full creative freedom to reimagine the email while maintaining its purpose. Feel free to completely restructure, rephrase, and enhance the content. You can experiment with different approaches, tones, and structures as long as they align with professional communication standards and the company's core message.",
+      "description": "Innovative: Maximum creative freedom"
+    }
+  ]
+}
