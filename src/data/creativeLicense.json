@@ -2,17 +2,17 @@
   "levels": [
     {
       "id": "1",
-      "instruction": "Keep extremely close to the original template. Only make essential adjustments for accuracy.",
+      "instruction": "Keep extremely close to the original template. Only make essential copy adjustments for accuracy. Do not change any layout or visual elements",
       "description": "Conservative: Minimal changes to the template"
     },
     {
       "id": "2",
-      "instruction": "Stay very close to the original template but allow for minor improvements in flow and readability. You can make small adjustments to improve clarity or engagement, but maintain the overall structure and key messages. Keep the same tone and style, with only slight variations where it enhances the message.",
+      "instruction": "Stay very close to the original template but allow for improvements in flow and readability. You can make adjustments to improve clarity or engagement, but maintain the overall structure and key messages. Keep the same tone and style, with only slight variations where it enhances the message & layout.",
       "description": "Subtle: Minor refinements allowed"
     },
     {
       "id": "3",
-      "instruction": "Use the template as a strong foundation but feel free to enhance it. You can rephrase sections to improve engagement while keeping the core message and structure. Maintain the general flow but add your own touch to make it more compelling. The key messages should remain the same but can be expressed in fresh ways.",
+      "instruction": "Use the template as a strong foundation but feel free to enhance it. You can rephrase sections to improve engagement while keeping the core message and structure. Maintain the general flow but add your own touch to make it more compelling. The key messages should remain the same but can be expressed in fresh ways. you should still use the ain image of the template.",
       "description": "Balanced: Moderate creativity while respecting template"
     },
     {

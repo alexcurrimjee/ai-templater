@@ -1,13 +1,13 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import customersData from '../templates/customers.json';
+import customersData from '../data/customers.json';
 
 interface Customer {
   id: string;
   name: string;
   email: string;
-  phone: string;
   debt_amount: string;
+  ref_code: string;
 }
 
 interface CustomerCardProps {

@@ -1,15 +1,12 @@
 import { Body, Button, Container, Head, Heading, Hr, Html, Img, Link, Preview, Section, Text, Tailwind } from '@react-email/components';
-import type { Customer, Client, ClientName } from '../App';
+import type { Customer, Client } from '../App';
 
 interface OctopusEmailProps {
-  selectedClient: ClientName;
-  customer: Customer | null;
-  clients: Client[];
+  client: Client;
+  customer: Customer;
 }
 
-const OctopusEmail = ({ selectedClient, customer, clients }: OctopusEmailProps) => {
-  if (!customer) return null;
-
+export default function OctopusEmail({ customer, client }: OctopusEmailProps) {
   return (
     <Tailwind>
       <Html>
@@ -18,9 +15,9 @@ const OctopusEmail = ({ selectedClient, customer, clients }: OctopusEmailProps) 
           <meta name='supported-color-schemes' content='light' />
         </Head>
         <Preview>Clear your debt, your way with Ophelos</Preview>
-        <Body style={main} className='bg-[#F9EFE0] m-0'>
-          <div className='bg-[#F9EFE0] sm:py-6'>
-            <Container style={container} className='bg-white py-6 sm:rounded-lg w-lg'>
+        <Body style={main} className='bg-[#FBF5EB] m-0'>
+          <div className='bg-[#FBF5EB] sm:py-6'>
+            <Container className='bg-white py-6 sm:rounded-lg w-lg'>
               <Section style={box}>
                 <Img className='mb-8' src='https://connect.ophelos.com/assets/Ophelos_Intrum-01568c59.png' width='150' height='43' alt='Ophelos' />
                 <Heading as='h1' className='text-3xl font-bold text-gray-900'>
@@ -44,8 +41,8 @@ const OctopusEmail = ({ selectedClient, customer, clients }: OctopusEmailProps) 
                     Ophelos
                   </Link>{' '}
                   — here to help you clear your {customer.debt_amount} debt with{' '}
-                  <Link style={anchor} href={clients.find((client) => client.name === selectedClient)?.website}>
-                    {selectedClient}
+                  <Link style={anchor} href={client.website}>
+                    {client.name}
                   </Link>
                   .
                 </Text>
@@ -65,7 +62,7 @@ const OctopusEmail = ({ selectedClient, customer, clients }: OctopusEmailProps) 
               <Section style={codewrap}>
                 <Section style={codebox}>
                   <Text className='m-0 text-center font-medium'>To access your account in copy this code:</Text>
-                  <Text style={code}>ABCDEF</Text>
+                  <Text style={code}>{customer.ref_code}</Text>
                   <Button style={button} href='https://connect.ophelos.com'>
                     View your account
                   </Button>
@@ -91,17 +88,10 @@ const OctopusEmail = ({ selectedClient, customer, clients }: OctopusEmailProps) 
       </Html>
     </Tailwind>
   );
-};
+}
 
 const main = {
   fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
-};
-
-const container = {
-  // backgroundColor: '#ffffff',
-  // margin: '0 auto',
-  // padding: '20px 0 48px',
-  // marginBottom: '64px',
 };
 
 const box = {
@@ -134,6 +124,7 @@ const codebox = {
   background: 'rgb(245, 244, 245)',
   borderRadius: '10px',
   padding: '24px 16px',
+  border: '1px solid #e6ebf1',
 };
 
 const code = {
@@ -190,5 +181,3 @@ const footer = {
   fontSize: '12px',
   lineHeight: '16px',
 };
-
-export default OctopusEmail;

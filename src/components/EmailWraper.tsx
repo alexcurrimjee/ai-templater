@@ -11,7 +11,7 @@ export const EmailWrapper = ({ children }: EmailWrapperProps) => {
         width: '100%',
         height: '100%',
         maxWidth: '100%',
-        transform: 'scale(1)', // Forces containment
+        transform: 'scale(1)' /*Forces containment*/,
         transformOrigin: 'top left',
       }}>
       {children}

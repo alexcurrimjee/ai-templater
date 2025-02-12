@@ -1,0 +1,24 @@
+{
+  "levels": [
+    {
+      "id": "1",
+      "instruction": "Tone 1: nice"
+    },
+    {
+      "id": "2",
+      "instruction": "Tone 2: nice"
+    },
+    {
+      "id": "3",
+      "instruction": "Tone 3: nice"
+    },
+    {
+      "id": "4",
+      "instruction": "Tone 4: nice"
+    },
+    {
+      "id": "5",
+      "instruction": "Tone 5: nice"
+    }
+  ]
+}

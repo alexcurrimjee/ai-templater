@@ -1,66 +1,65 @@
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { Avatar, AvatarImage } from '@radix-ui/react-avatar';
+import { useEffect, useState } from 'react';
+import type { Customer, Client, Model } from '../App';
 import { CustomerCard } from '@/components/CustomerCard';
+import { generatePrompt } from '@/components/promptGenerator';
+import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { Sparkles, RefreshCcw } from 'lucide-react';
-import { useState } from 'react';
-import type { ClientName, Customer, Client } from '../App';
-import { generatePrompt } from '@/components/promptGenerator';
-import { ReactNode } from 'react';
-import { useEffect } from 'react';
-
-import modelsData from '../templates/models.json';
-
-interface Model {
-  id: string;
-  name: string;
-}
+import { Sparkles, RefreshCcw, Import } from 'lucide-react';
+import modelsData from '../data/models.json';
+import { getDummyTemplate } from '@/templates/dummyTemplates';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 interface EditorProps {
-  selectedClient: ClientName;
-  customer: Customer | null;
+  selectedClient: Client;
+  customer: Customer;
   clients: Client[];
-  emailComponent: ReactNode;
-
   isGenerated: boolean;
-  onClientChange: (value: ClientName) => void;
+  onClientChange: (client: Client) => void;
   onCustomerChange: (customer: Customer) => void;
   onPromptChange: (prompt: string) => void;
   onGenerate: (value: boolean) => void;
+  selectedModel: Model;
+  onModelChange: (model: Model) => void;
 }
 
 const Editor = ({
   selectedClient,
   customer,
-  emailComponent,
   isGenerated,
   clients,
-
   onClientChange,
   onCustomerChange,
   onPromptChange,
   onGenerate,
+  selectedModel,
+  onModelChange,
 }: EditorProps) => {
-  const [selectedModel, setSelectedModel] = useState<Model>(modelsData.models[0]);
   const [creativeLicenseValue, setCreativeLicenseValue] = useState<number>(3);
+  const [toneValue, setToneValue] = useState<number>(1);
+  const [template, setTemplate] = useState<string>('');
   const [customPrompt, setCustomPrompt] = useState<string>('');
 
   useEffect(() => {
     const prompt = generatePrompt({
-      template: emailComponent,
       creativeLicense: creativeLicenseValue,
+      tone: toneValue,
       customPrompt: customPrompt,
+      template: template,
     });
     onPromptChange(prompt);
-  }, [emailComponent, creativeLicenseValue, customPrompt, onPromptChange]);
+  }, [template, toneValue, creativeLicenseValue, customPrompt, onPromptChange]);
 
-  const handleValueChange = (value: string) => {
-    onClientChange(value as ClientName);
+  const handleClientChange = (clientId: string) => {
+    const client = clients.find((c) => c.id === clientId);
+    if (client) {
+      onClientChange(client);
+    }
   };
 
   const handleCustomerChange = (customer: Customer) => {
@@ -70,7 +69,7 @@ const Editor = ({
   const handleModelChange = (modelId: string) => {
     const model = modelsData.models.find((m) => m.id === modelId);
     if (model) {
-      setSelectedModel(model);
+      onModelChange(model);
     }
   };
 
@@ -78,19 +77,29 @@ const Editor = ({
     setCreativeLicenseValue(value[0]);
   };
 
+  const handleToneChange = (value: number[]) => {
+    setToneValue(value[0]);
+  };
+
+  const handleImportDummy = () => {
+    const dummyTemplate = getDummyTemplate(selectedClient.name);
+    setTemplate(dummyTemplate);
+  };
+
   const handleGenerateClick = () => {
     onGenerate(!isGenerated);
   };
 
   return (
-    <div className='h-full w-full pt-6 p-6 bg-white flex flex-col gap-6'>
+    <div className='w-full bg-white flex flex-col gap-3'>
       <CustomerCard customer={customer} onEdit={handleCustomerChange} />
-      <Tabs value={selectedClient} onValueChange={handleValueChange} className='w-full'>
+
+      <Tabs value={selectedClient.id} onValueChange={handleClientChange} className='w-full'>
         <TabsList className='w-full mb-2'>
           {clients.map((client) => (
-            <TabsTrigger key={client.id} className='w-full gap-3' value={client.name}>
-              <Avatar>
-                <AvatarImage className='h-5 w-5' src={client.logo} alt={client.name} />
+            <TabsTrigger key={client.id} className='w-full gap-3' value={client.id}>
+              <Avatar className='h-5 w-5'>
+                <AvatarImage src={client.logo} alt={client.name} />
               </Avatar>
               {client.name}
             </TabsTrigger>
@@ -98,12 +107,12 @@ const Editor = ({
         </TabsList>
 
         {clients.map((client) => (
-          <TabsContent key={client.id} value={client.name}>
+          <TabsContent key={client.id} value={client.id}>
             <Card>
               <CardHeader>
                 <CardTitle>Build your Prompt</CardTitle>
               </CardHeader>
-              <CardContent className='space-y-8 flex flex-col'>
+              <CardContent className='space-y-4 flex flex-col'>
                 <div className='gap-y-4'>
                   <Label htmlFor='model-select'>AI Model</Label>
                   <Select onValueChange={handleModelChange} defaultValue={selectedModel.id} value={selectedModel.id}>
@@ -125,6 +134,7 @@ const Editor = ({
                     </SelectContent>
                   </Select>
                 </div>
+
                 <div className='space-y-4'>
                   <div className='flex justify-between items-center'>
                     <Label>Creative License</Label>
@@ -138,15 +148,49 @@ const Editor = ({
                 </div>
 
                 <div className='space-y-4'>
+                  <div className='flex justify-between items-center'>
+                    <Label>Tone</Label>
+                    <span className='text-sm text-gray-500'>{toneValue}/5</span>
+                  </div>
+                  <Slider min={1} max={5} step={1} value={[toneValue]} onValueChange={handleToneChange} />
+                  <div className='w-full flex flex-row justify-between'>
+                    <span className='h-9 w-9 rounded-full bg-primary/10 flex justify-center items-center text-xl'>😊</span>
+                    <span className='h-9 w-9 rounded-full bg-primary/10 flex justify-center items-center text-xl'>😡</span>
+                  </div>
+                </div>
+
+                <Accordion type='single' collapsible>
+                  <AccordionItem value='item-1'>
+                    <AccordionTrigger>Template</AccordionTrigger>
+                    <AccordionContent className='space-y-4 pt-0.25 px-0.25'>
+                      <Textarea
+                        id='prompt'
+                        placeholder='What does a good template look like? Import it here...'
+                        value={template}
+                        onChange={(e) => setTemplate(e.target.value)}
+                        className='min-h-[150px] bg-gray-50 hover:bg-white transition'
+                      />
+                      <Button variant='outline' size='sm' className='self-end' onClick={handleImportDummy}>
+                        <Import className='h-4 w-4 mr-2 text-gray-400' />
+                        Import Dummy Data
+                      </Button>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+
+                <div className='space-y-4'>
                   <Label htmlFor='prompt'>Custom Prompt</Label>
                   <Textarea
                     id='prompt'
                     placeholder='Enter custom prompt or instructions...'
                     value={customPrompt}
                     onChange={(e) => setCustomPrompt(e.target.value)}
-                    className='min-h-[150px] bg-gray-50 hover:bg-white transition'
+                    className='min-h-[100px] bg-gray-50 hover:bg-white transition'
                   />
                 </div>
+
+                <div className='space-y-2'></div>
+
                 <Button variant={isGenerated ? 'outline' : 'default'} className='self-end' onClick={handleGenerateClick}>
                   {isGenerated ? (
                     <>
@@ -156,7 +200,7 @@ const Editor = ({
                   ) : (
                     <>
                       <Sparkles size={16} className='mr-2' />
-                      <span>Generate Email</span>
+                      <span>Generate Prompt</span>
                     </>
                   )}
                 </Button>
