@@ -14,7 +14,8 @@ export type ClientName = (typeof clientsData.clients)[number]['name'];
 
 export interface Customer {
   id: string;
-  name: string;
+  first_name: string;
+  last_name: string;
   email: string;
   debt_amount: string;
   ref_code: string;

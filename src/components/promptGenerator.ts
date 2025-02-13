@@ -25,7 +25,8 @@ ${template}
 
 Data: You have the following data at your disposal, you are not allowed to use anything else: 
 customer {
-  name - string
+  first_name - string
+  last_name - string
   email - string
   debt_amount - string
   ref_code - string (6 character code used for customer authentication)
@@ -58,14 +59,11 @@ Important:
 - Do not use TypeScript syntax or types
 - Do not include any imports or additional code
 - Do not use any external libraries
-- Do not include character escape sequences
 - Return only the component definition
 
 - You are required to display the footer content exactly as it is
 - You must always use the Ophelos Logo somewhere in the header
 - You are not allowed to use the colour red or uppercase text
-
-- Your <Body> & <Container> components must follow the same styling as the template
-- You should try to make this as visually appealing as possible
+- Emails must contain the ref_code a a clear call to action to access the login page
 `;
 }

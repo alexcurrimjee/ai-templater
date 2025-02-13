@@ -2,29 +2,33 @@
   "customers": [
     {
       "id": "1",
-      "name": "Alexander Currimjee",
+      "first_name": "Alexander",
+      "last_name": "Currimjee",
       "email": "alex@ophelos.com",
       "ref_code": "ABC123",
       "debt_amount": "£504.56"
     },
     {
       "id": "2",
-      "name": "Paul Chong",
+      "first_name": "Paul",
+      "last_name": "Chong",
       "email": "paul.chong@ophelos.com",
       "ref_code": "ABC123",
       "debt_amount": "£120.32"
     },
     {
       "id": "3",
-      "name": "Amon Ghaiumy",
+      "first_name": "Amon",
+      "last_name": "Ghaiumy",
       "email": "amon@ophelos.com",
       "ref_code": "ABC123",
       "debt_amount": "£1,234.56"
     },
     {
       "id": "4",
-      "name": "Francis Go",
-      "email": "fran@ophelos.com",
+      "first_name": "Andres",
+      "last_name": "Rubio",
+      "email": "andres.rubio@intrum.com",
       "ref_code": "ABC123",
       "debt_amount": "£34.56"
     }

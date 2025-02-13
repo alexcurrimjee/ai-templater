@@ -128,7 +128,7 @@ export default function OctopusEmail({ customer, client }: OctopusEmailProps) {
                 />
               </Section>
               <Section style={box}>
-                <Text style={paragraph}>Hi {customer.name},</Text>
+                <Text style={paragraph}>Hi {customer.first_name},</Text>
                 <Text style={paragraph}>
                   We're{' '}
                   <Link style={anchor} href='https://www.ophelos.com'>

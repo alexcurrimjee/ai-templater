@@ -7,12 +7,12 @@ export interface ModelConfig {
 export const MODEL_CONFIGS: Record<string, ModelConfig> = {
   'gpt-4o': {
     provider: 'openai',
-    model: 'gpt-4o-2024-08-06',
+    model: 'gpt-4o',
     displayName: 'GPT-4o',
   },
   'gpt-4o-mini': {
     provider: 'openai',
-    model: 'gpt-4o-mini-2024-07-18',
+    model: 'gpt-4o-mini',
     displayName: 'GPT-4o mini',
   },
   'claude-3-5-sonnet': {

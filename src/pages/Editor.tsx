@@ -5,7 +5,7 @@ import { generatePrompt } from '@/components/promptGenerator';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
@@ -109,7 +109,7 @@ const Editor = ({
   };
 
   return (
-    <div className='w-full bg-white flex flex-col gap-3'>
+    <div className='w-full bg-white flex flex-col gap-4'>
       <CustomerCard customer={customer} onEdit={handleCustomerChange} />
 
       <Tabs value={selectedClient.id} onValueChange={handleClientChange} className='w-full'>
@@ -126,10 +126,7 @@ const Editor = ({
 
         {clients.map((client) => (
           <TabsContent key={client.id} value={client.id}>
-            <Card>
-              <CardHeader>
-                <CardTitle>Build your Prompt</CardTitle>
-              </CardHeader>
+            <Card className='pt-6'>
               <CardContent className='space-y-4 flex flex-col'>
                 <div className='gap-y-4'>
                   <Label htmlFor='model-select'>AI Model</Label>
@@ -205,7 +202,7 @@ const Editor = ({
                   </AccordionItem>
                 </Accordion>
 
-                <Accordion type='single' collapsible>
+                <Accordion type='single' collapsible defaultValue='item-1'>
                   <AccordionItem value='item-1'>
                     <AccordionTrigger>Custom Prompt</AccordionTrigger>
                     <AccordionContent className='space-y-4 pt-0.25 px-0.25'>

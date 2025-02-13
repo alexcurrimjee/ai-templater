@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Send } from 'lucide-react';
+import { Send, Code, Copy, Check } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import type { Customer, Client } from '../App';
 import GeneratedEmailRenderer from '@/components/GeneratedEmailRenderer';
@@ -22,6 +22,15 @@ interface PreviewProps {
 const Preview = ({ emailComponent, customer, client, generatedPrompt, isGenerated, generatedEmail, isLoading, error }: PreviewProps) => {
   const [activeTab, setActiveTab] = useState('template');
   const [renderedEmail, setRenderedEmail] = useState<string>('');
+  const [codeFormat, setCodeFormat] = useState<'react' | 'html'>('react');
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    const code = codeFormat === 'react' ? generatedEmail : renderedEmail;
+    await navigator.clipboard.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000);
+  };
 
   useEffect(() => {
     const renderEmail = async () => {
@@ -45,18 +54,36 @@ const Preview = ({ emailComponent, customer, client, generatedPrompt, isGenerate
   return (
     <div className='h-full bg-container-dark'>
       <Tabs value={activeTab} onValueChange={setActiveTab} className='w-full h-full flex flex-col items-center'>
-        <TabsList className='h-9 my-2 bg-white/35'>
-          <TabsTrigger value='template' className='aria-[selected=false]:text-gray-100'>
-            Template
-          </TabsTrigger>
-          <TabsTrigger value='prompt' className='aria-[selected=false]:text-gray-100'>
-            Prompt
-          </TabsTrigger>
-          <TabsTrigger value='generated' className='aria-[selected=false]:text-gray-100' disabled={!isGenerated}>
-            Generated
-          </TabsTrigger>
-        </TabsList>
-        {activeTab === 'prompt' ? (
+        <div className='w-full h-12 shrink-0 flex flex-row justify-center items-center gap-4'>
+          <TabsList className='h-8 p-0 bg-white/0 border border-white/35 overflow-hidden rounded-md'>
+            <TabsTrigger
+              value='template'
+              className='aria-[selected=false]:text-gray-100 aria-[selected=false]:hover:bg-white/10 data-[state="active"]:bg-white/20! data-[state="active"]:text-white! h-full py-0 px-5 rounded-none'>
+              Template
+            </TabsTrigger>
+            <TabsTrigger
+              value='prompt'
+              className='aria-[selected=false]:text-gray-100 aria-[selected=false]:hover:bg-white/10 data-[state="active"]:bg-white/20! data-[state="active"]:text-white! h-full py-0 px-5 rounded-none'>
+              Prompt
+            </TabsTrigger>
+          </TabsList>
+          <TabsList className={`${!isGenerated && 'hidden'} h-8 p-0 bg-white/0 border border-white/35 overflow-hidden rounded-md`}>
+            <TabsTrigger
+              value='generated'
+              className='aria-[selected=false]:text-gray-100 aria-[selected=false]:hover:bg-white/10 data-[state="active"]:bg-white/20! data-[state="active"]:text-white! h-full py-0 px-5 rounded-none'
+              disabled={!isGenerated}>
+              ✨ Generated ✨
+            </TabsTrigger>
+            <TabsTrigger
+              value='code'
+              className='aria-[selected=false]:text-gray-100 aria-[selected=false]:hover:bg-white/10 data-[state="active"]:bg-white/20! data-[state="active"]:text-white! h-full py-0 px-5 rounded-none'
+              disabled={!isGenerated}>
+              <Code size={16} />
+            </TabsTrigger>
+          </TabsList>
+        </div>
+
+        {activeTab === 'prompt' || activeTab === 'code' ? (
           <></>
         ) : (
           <>
@@ -68,7 +95,9 @@ const Preview = ({ emailComponent, customer, client, generatedPrompt, isGenerate
                 <div className='flex flex-col'>
                   <div className='flex flex-row gap-x-1.5 items-baseline'>
                     <p className='text-gray-400'>To:</p>
-                    <h1 className='text-lg font-medium'>{customer?.name}</h1>
+                    <h1 className='text-lg font-medium'>
+                      {customer?.first_name} {customer?.last_name}
+                    </h1>
                     <p className='font-base text-gray-400 text-base'>&lt;{customer?.email}&gt;</p>
                   </div>
                   <div className='flex flex-row gap-x-1.5 items-baseline mb-1'>
@@ -93,7 +122,7 @@ const Preview = ({ emailComponent, customer, client, generatedPrompt, isGenerate
         <TabsContent value='template' className='m-0 w-full h-full'>
           <iframe title='email-preview' srcDoc={renderedEmail} className='bg-white h-full w-full' />
         </TabsContent>
-        <TabsContent value='prompt' className='overflow-scroll  text-white px-6 py-4 w-full h-full'>
+        <TabsContent value='prompt' className='text-white px-6 pb-6 w-full h-full overflow-auto'>
           <pre className='whitespace-pre-wrap font-mono text-sm'>{generatedPrompt}</pre>
         </TabsContent>
         <TabsContent value='generated' className='m-0 w-full h-full bg-gray-50'>
@@ -109,6 +138,39 @@ const Preview = ({ emailComponent, customer, client, generatedPrompt, isGenerate
           ) : (
             <div className='text-gray-400 text-center'>Generate a template to see the preview</div>
           )}
+        </TabsContent>
+        <TabsContent value='code' className='text-white w-full border border-white/25 rounded-lg overflow-hidden max-w-2xl'>
+          <Tabs defaultValue='react' onValueChange={(value) => setCodeFormat(value as 'react' | 'html')} className='w-full'>
+            <div className='flex justify-between items-center mb-0 border-b border-white/15'>
+              <TabsList className='h-10 p-0 bg-white/0'>
+                <TabsTrigger
+                  value='react'
+                  className='aria-[selected=false]:text-gray-100 aria-[selected=false]:hover:bg-white/10 data-[state="active"]:bg-white/20! data-[state="active"]:text-white! h-full py-0 px-5 rounded-none'>
+                  React Email
+                </TabsTrigger>
+                <TabsTrigger
+                  value='html'
+                  className='aria-[selected=false]:text-gray-100 aria-[selected=false]:hover:bg-white/10 data-[state="active"]:bg-white/20! data-[state="active"]:text-white! h-full py-0 px-5 rounded-none'>
+                  HTML
+                </TabsTrigger>
+              </TabsList>
+              <Button variant='secondary' size='sm' className='dark bg-white/15 hover:bg-white/25 mr-1' onClick={handleCopy}>
+                {copied ? <Check size={16} /> : <Copy size={16} />}
+              </Button>
+            </div>
+
+            <TabsContent value='react' className='m-0'>
+              <div className='bg-white/5 rounded-lg p-4 overflow-auto h-[calc(100vh-8rem)]'>
+                <pre className='whitespace-pre-wrap font-mono text-sm'>{generatedEmail}</pre>
+              </div>
+            </TabsContent>
+
+            <TabsContent value='html' className='m-0'>
+              <div className='bg-white/5 rounded-lg p-4 overflow-auto h-[calc(100vh-8rem)]'>
+                <pre className='whitespace-pre-wrap font-mono text-sm'>{renderedEmail}</pre>
+              </div>
+            </TabsContent>
+          </Tabs>
         </TabsContent>
       </Tabs>
     </div>
