@@ -127,7 +127,7 @@ function App() {
             customer={selectedCustomer}
             generatedPrompt={generatedPrompt}
             isGenerated={isGenerated}
-            generatedEmail={apiResponse}
+            apiResponse={apiResponse}
             isLoading={isLoading}
             error={error}
           />

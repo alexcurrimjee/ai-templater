@@ -14,19 +14,19 @@ interface PreviewProps {
   client: Client;
   generatedPrompt: string;
   isGenerated: boolean;
-  generatedEmail: string;
+  apiResponse: string;
   isLoading: boolean;
   error: string | null;
 }
 
-const Preview = ({ emailComponent, customer, client, generatedPrompt, isGenerated, generatedEmail, isLoading, error }: PreviewProps) => {
+const Preview = ({ emailComponent, customer, client, generatedPrompt, isGenerated, apiResponse, isLoading, error }: PreviewProps) => {
   const [activeTab, setActiveTab] = useState('template');
   const [renderedEmail, setRenderedEmail] = useState<string>('');
   const [codeFormat, setCodeFormat] = useState<'react' | 'html'>('react');
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
-    const code = codeFormat === 'react' ? generatedEmail : renderedEmail;
+    const code = codeFormat === 'react' ? apiResponse : renderedEmail;
     await navigator.clipboard.writeText(code);
     setCopied(true);
     setTimeout(() => setCopied(false), 3000);
@@ -132,9 +132,9 @@ const Preview = ({ emailComponent, customer, client, generatedPrompt, isGenerate
             </div>
           ) : error ? (
             <div className='text-red-500 p-6'>{error}</div>
-          ) : generatedEmail ? (
+          ) : apiResponse ? (
             /* Generate the email using API reponse here component */
-            <GeneratedEmailRenderer code={generatedEmail} customer={customer} client={client} />
+            <GeneratedEmailRenderer code={apiResponse} customer={customer} client={client} />
           ) : (
             <div className='text-gray-400 text-center'>Generate a template to see the preview</div>
           )}
@@ -161,14 +161,14 @@ const Preview = ({ emailComponent, customer, client, generatedPrompt, isGenerate
 
             <TabsContent value='react' className='m-0'>
               <div className='bg-white/5 rounded-lg p-4 overflow-auto h-[calc(100vh-8rem)]'>
-                <pre className='whitespace-pre-wrap font-mono text-sm'>{generatedEmail}</pre>
+                <pre className='whitespace-pre-wrap font-mono text-sm'>{apiResponse}</pre>
               </div>
             </TabsContent>
 
             <TabsContent value='html' className='m-0'>
               <div className='bg-white/5 rounded-lg p-4 overflow-auto h-[calc(100vh-8rem)]'>
                 <pre className='whitespace-pre-wrap font-mono text-sm'>
-                  <GeneratedEmailRenderer code={generatedEmail} customer={customer} client={client} returnHTML={true} />
+                  <GeneratedEmailRenderer code={apiResponse} customer={customer} client={client} returnHTML={true} />
                 </pre>
               </div>
             </TabsContent>
