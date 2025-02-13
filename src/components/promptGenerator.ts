@@ -25,30 +25,47 @@ ${template}
 
 Data: You have the following data at your disposal, you are not allowed to use anything else: 
 customer {
-  id: string;
-  name: string;
-  email: string;
-  debt_amount: string;
-  ref_code: string; /*6 character code used for customer authentication*/
+  name - string
+  email - string
+  debt_amount - string
+  ref_code - string (6 character code used for customer authentication)
 }
 client {
-  id: string;
-  name: string;
-  logo: string;
-  industry: string;
-  website: string;
+  name - string
+  logo - string
+  industry - string
+  website - string
 }
 
-Output: please provide your response using only React Email components, do not return raw HTML.  
-Your response should use ONLY React Email components (like Body, Container, Section, Text, etc) in the exact following format: 
+Output: Please provide a simple React Email template. Use ONLY React Email components (Html, Head, Preview, Body, Container, Section, Text, Button, etc). Return ONLY the component definition in this exact format:
 
-export default function EmailTemplate({ customer, client }) {
-/* styling constants /
-return (
-<Html>
-/* rest of the template */
-</Html>
-);}
+({ customer, client }) => {
+  const main = {
+    // style object
+  };
+  // other style objects
+  
+  return (
+  <Tailwind>
+    <Html>
+    // template content
+    </Html>
+  </Tailwind>
+  );
+}
 
-Do not include any explanations, imports, or additional code - just the component definition itself.`;
+Important:
+- Do not use TypeScript syntax or types
+- Do not include any imports or additional code
+- Do not use any external libraries
+- Do not include character escape sequences
+- Return only the component definition
+
+- You are required to display the footer content exactly as it is
+- You must always use the Ophelos Logo somewhere in the header
+- You are not allowed to use the colour red or uppercase text
+
+- Your <Body> & <Container> components must follow the same styling as the template
+- You should try to make this as visually appealing as possible
+`;
 }

@@ -1,14 +1,15 @@
-import { ReactNode } from 'react';
+import { ReactElement } from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { renderToStaticMarkup } from 'react-dom/server';
 import { Send } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import type { Customer, Client } from '../App';
+import GeneratedEmailRenderer from '@/components/GeneratedEmailRenderer';
+import { render } from '@react-email/render';
 
 interface PreviewProps {
-  emailComponent: ReactNode;
+  emailComponent: ReactElement;
   customer: Customer;
   client: Client;
   generatedPrompt: string;
@@ -20,7 +21,18 @@ interface PreviewProps {
 
 const Preview = ({ emailComponent, customer, client, generatedPrompt, isGenerated, generatedEmail, isLoading, error }: PreviewProps) => {
   const [activeTab, setActiveTab] = useState('template');
-  const emailHtml = renderToStaticMarkup(emailComponent);
+  const [renderedEmail, setRenderedEmail] = useState<string>('');
+
+  useEffect(() => {
+    const renderEmail = async () => {
+      const html = await render(emailComponent, {
+        pretty: true,
+      });
+      setRenderedEmail(html);
+    };
+
+    renderEmail();
+  }, [emailComponent]);
 
   useEffect(() => {
     if (isGenerated) {
@@ -79,7 +91,7 @@ const Preview = ({ emailComponent, customer, client, generatedPrompt, isGenerate
         )}
 
         <TabsContent value='template' className='m-0 w-full h-full'>
-          <iframe title='email-preview' srcDoc={emailHtml} className='bg-white h-full w-full' />
+          <iframe title='email-preview' srcDoc={renderedEmail} className='bg-white h-full w-full' />
         </TabsContent>
         <TabsContent value='prompt' className='overflow-scroll  text-white px-6 py-4 w-full h-full'>
           <pre className='whitespace-pre-wrap font-mono text-sm'>{generatedPrompt}</pre>
@@ -92,7 +104,8 @@ const Preview = ({ emailComponent, customer, client, generatedPrompt, isGenerate
           ) : error ? (
             <div className='text-red-500 p-6'>{error}</div>
           ) : generatedEmail ? (
-            <iframe title='generated-email-preview' srcDoc={generatedEmail} className='bg-white h-full w-full' />
+            /* Generate the email using API reponse here component */
+            <GeneratedEmailRenderer code={generatedEmail} customer={customer} client={client} />
           ) : (
             <div className='text-gray-400 text-center'>Generate a template to see the preview</div>
           )}

@@ -6,6 +6,7 @@ import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Textarea } from '@/components/ui/textarea';
@@ -20,12 +21,15 @@ interface EditorProps {
   customer: Customer;
   clients: Client[];
   isGenerated: boolean;
+  selectedModel: Model;
+  isTestMode: boolean;
   onClientChange: (client: Client) => void;
   onCustomerChange: (customer: Customer) => void;
   onPromptChange: (prompt: string) => void;
   onGenerate: (value: boolean) => void;
-  selectedModel: Model;
   onModelChange: (model: Model) => void;
+  onAPIResponseChange: (response: string) => void;
+  onTestModeChange: (value: boolean) => void;
 }
 
 const Editor = ({
@@ -33,12 +37,15 @@ const Editor = ({
   customer,
   isGenerated,
   clients,
+  selectedModel,
+  isTestMode,
   onClientChange,
   onCustomerChange,
   onPromptChange,
   onGenerate,
-  selectedModel,
   onModelChange,
+  onAPIResponseChange,
+  onTestModeChange,
 }: EditorProps) => {
   const [creativeLicenseValue, setCreativeLicenseValue] = useState<number>(3);
   const [toneValue, setToneValue] = useState<number>(1);
@@ -227,6 +234,20 @@ const Editor = ({
                 </Button>
               </CardContent>
             </Card>
+            <div className='flex flex-col gap-4 mt-6'>
+              <div className='flex items-center space-x-2'>
+                <Switch id='test-mode' checked={isTestMode} onCheckedChange={onTestModeChange} />
+                <Label htmlFor='test-mode'>Test Mode</Label>
+              </div>
+
+              {isTestMode && (
+                <Textarea
+                  placeholder='Paste an API response here to test rendering...'
+                  className='bg-gray-50 min-h-[200px] font-mono text-sm'
+                  onChange={(e) => onAPIResponseChange(e.target.value)}
+                />
+              )}
+            </div>
           </TabsContent>
         ))}
       </Tabs>

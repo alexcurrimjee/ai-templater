@@ -7,6 +7,100 @@ interface OctopusEmailProps {
 }
 
 export default function OctopusEmail({ customer, client }: OctopusEmailProps) {
+  const main = {
+    fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
+    background: '#FBF5EB',
+    margin: 0,
+  };
+
+  const box = {
+    padding: '0 24px',
+  };
+
+  const hr = {
+    borderColor: '#e6ebf1',
+    margin: '20px 0',
+  };
+
+  const paragraph = {
+    color: '#525f7f',
+    fontSize: '16px',
+    lineHeight: '24px',
+    textAlign: 'left' as const,
+  };
+
+  const anchor = {
+    color: '#161310',
+    fontWeight: 'bold',
+  };
+
+  const codewrap = {
+    padding: '0 12px',
+    marginBottom: '24px',
+  };
+
+  const codebox = {
+    background: 'rgb(245, 244, 245)',
+    borderRadius: '10px',
+    padding: '24px 16px',
+    border: '1px solid #e6ebf1',
+  };
+
+  const code = {
+    color: '#000',
+    display: 'inline-block',
+    fontFamily: 'HelveticaNeue-Bold',
+    fontSize: '32px',
+    fontWeight: 700,
+    letterSpacing: '6px',
+    lineHeight: '40px',
+    paddingBottom: '8px',
+    paddingTop: '8px',
+    margin: '10px auto',
+    width: '100%',
+    border: '1px solid #e6ebf1',
+    borderRadius: '8px',
+    backgroundColor: '#FFF',
+    textAlign: 'center' as const,
+  };
+
+  const button = {
+    backgroundColor: '#161310',
+    borderRadius: '99px',
+    color: '#fff',
+    fontSize: '16px',
+    fontWeight: 'bold',
+    textDecoration: 'none',
+    textAlign: 'center' as const,
+    display: 'block',
+    width: '100%',
+    maxWidth: '240px',
+    margin: '10px auto 0',
+    padding: '10px 0',
+  };
+
+  const buttonalt = {
+    backgroundColor: '#FFF',
+    borderRadius: '99px',
+    border: '1px solid #E5E7EB',
+    color: '#161310',
+    fontSize: '16px',
+    fontWeight: 'bold',
+    textDecoration: 'none',
+    textAlign: 'center' as const,
+    display: 'block',
+    width: '100%',
+    maxWidth: '240px',
+    margin: '10px auto 0',
+    padding: '10px 0',
+  };
+
+  const footer = {
+    color: '#8898aa',
+    fontSize: '12px',
+    lineHeight: '16px',
+  };
+
   return (
     <Tailwind>
       <Html>
@@ -15,12 +109,12 @@ export default function OctopusEmail({ customer, client }: OctopusEmailProps) {
           <meta name='supported-color-schemes' content='light' />
         </Head>
         <Preview>Clear your debt, your way with Ophelos</Preview>
-        <Body style={main} className='bg-[#FBF5EB] m-0'>
+        <Body style={main}>
           <div className='bg-[#FBF5EB] sm:py-6'>
             <Container className='bg-white py-6 sm:rounded-lg w-lg'>
               <Section style={box}>
                 <Img className='mb-8' src='https://connect.ophelos.com/assets/Ophelos_Intrum-01568c59.png' width='150' height='43' alt='Ophelos' />
-                <Heading as='h1' className='text-3xl font-bold text-gray-900'>
+                <Heading as='h1' className='text-3xl font-bold'>
                   Clear your debt, your way
                 </Heading>
               </Section>
@@ -89,95 +183,3 @@ export default function OctopusEmail({ customer, client }: OctopusEmailProps) {
     </Tailwind>
   );
 }
-
-const main = {
-  fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
-};
-
-const box = {
-  padding: '0 24px',
-};
-
-const hr = {
-  borderColor: '#e6ebf1',
-  margin: '20px 0',
-};
-
-const paragraph = {
-  color: '#525f7f',
-  fontSize: '16px',
-  lineHeight: '24px',
-  textAlign: 'left' as const,
-};
-
-const anchor = {
-  color: '#161310',
-  fontWeight: 'bold',
-};
-
-const codewrap = {
-  padding: '0 12px',
-  marginBottom: '24px',
-};
-
-const codebox = {
-  background: 'rgb(245, 244, 245)',
-  borderRadius: '10px',
-  padding: '24px 16px',
-  border: '1px solid #e6ebf1',
-};
-
-const code = {
-  color: '#000',
-  display: 'inline-block',
-  fontFamily: 'HelveticaNeue-Bold',
-  fontSize: '32px',
-  fontWeight: 700,
-  letterSpacing: '6px',
-  lineHeight: '40px',
-  paddingBottom: '8px',
-  paddingTop: '8px',
-  margin: '10px auto',
-  width: '100%',
-  border: '1px solid #e6ebf1',
-  borderRadius: '8px',
-  backgroundColor: '#FFF',
-  textAlign: 'center' as const,
-};
-
-const button = {
-  backgroundColor: '#161310',
-  borderRadius: '99px',
-  color: '#fff',
-  fontSize: '16px',
-  fontWeight: 'bold',
-  textDecoration: 'none',
-  textAlign: 'center' as const,
-  display: 'block',
-  width: '100%',
-  maxWidth: '240px',
-  margin: '10px auto 0',
-  padding: '10px 0',
-};
-
-const buttonalt = {
-  backgroundColor: '#FFF',
-  borderRadius: '99px',
-  border: '1px solid #E5E7EB',
-  color: '#161310',
-  fontSize: '16px',
-  fontWeight: 'bold',
-  textDecoration: 'none',
-  textAlign: 'center' as const,
-  display: 'block',
-  width: '100%',
-  maxWidth: '240px',
-  margin: '10px auto 0',
-  padding: '10px 0',
-};
-
-const footer = {
-  color: '#8898aa',
-  fontSize: '12px',
-  lineHeight: '16px',
-};
