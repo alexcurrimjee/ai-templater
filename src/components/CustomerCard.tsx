@@ -36,7 +36,7 @@ export function CustomerCard({ customer, onEdit }: CustomerCardProps) {
   return (
     <div className='w-full'>
       <Select defaultValue={customer?.id} onValueChange={handleValueChange}>
-        <SelectTrigger className='w-full bg-gray-50 hover:bg-white transition'>
+        <SelectTrigger className='w-full bg-white'>
           <SelectValue placeholder='Select a customer'>
             {customer && (
               <div className='flex items-center gap-2'>
@@ -56,7 +56,7 @@ export function CustomerCard({ customer, onEdit }: CustomerCardProps) {
                 </Avatar>
                 <div className='flex flex-col'>
                   <p className='text-sm font-medium'>{c.name}</p>
-                  <p className='text-sm text-gray-500'>{c.debt_amount}</p>
+                  <p className='text-sm text-gray-400'>{c.email}</p>
                 </div>
               </div>
             </SelectItem>

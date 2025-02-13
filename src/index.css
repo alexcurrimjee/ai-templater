@@ -94,6 +94,8 @@ body {
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  --color-container-dark: #0e012b;
 }
 
 @layer base {

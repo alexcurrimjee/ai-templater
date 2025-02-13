@@ -1,12 +1,13 @@
 import Preview from './pages/Preview';
 import Editor from './pages/Editor';
 import { useState, useEffect } from 'react';
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import OctopusEmail from './templates/OctopusEmail';
 import customersData from './data/customers.json';
 import clientsData from './data/clients.json';
-import modelsData from './data/models.json';
-import './App.css';
+import { MODELS } from './api/modelConfigs';
 import { generateTemplate } from './api/generateTemplate';
+import './App.css';
 
 export type ClientName = (typeof clientsData.clients)[number]['name'];
 
@@ -34,7 +35,7 @@ export interface Model {
 function App() {
   const [selectedCustomer, setSelectedCustomer] = useState<Customer>(customersData.customers[0]);
   const [selectedClient, setSelectedClient] = useState<Client>(clientsData.clients[0]);
-  const [selectedModel, setSelectedModel] = useState<Model>(modelsData.models[0]);
+  const [selectedModel, setSelectedModel] = useState<Model>(MODELS[0]);
   const [emailComponent, setEmailComponent] = useState<React.ReactNode>(null);
   const [generatedPrompt, setGeneratedPrompt] = useState<string>('');
   const [isGenerated, setIsGenerated] = useState(false);
@@ -78,9 +79,9 @@ function App() {
   };
 
   return (
-    <div className='w-full h-full'>
-      <div className='flex flex-row'>
-        <div className='w-1/3 2xl:w-1/4 overflow-y-auto no-scrollbar p-6'>
+    <div className='w-full h-full min-h-screen'>
+      <ResizablePanelGroup direction='horizontal'>
+        <ResizablePanel minSize={25} defaultSize={33} className='bg-white overflow-y-auto no-scrollbar p-6'>
           <Editor
             customer={selectedCustomer}
             onCustomerChange={setSelectedCustomer}
@@ -93,8 +94,9 @@ function App() {
             selectedModel={selectedModel}
             onModelChange={setSelectedModel}
           />
-        </div>
-        <div className='border-l w-2/3 2xl:w-3/4'>
+        </ResizablePanel>
+        <ResizableHandle />
+        <ResizablePanel>
           <Preview
             emailComponent={emailComponent}
             client={selectedClient}
@@ -105,8 +107,8 @@ function App() {
             isLoading={isLoading}
             error={error}
           />
-        </div>
-      </div>
+        </ResizablePanel>
+      </ResizablePanelGroup>
     </div>
   );
 }

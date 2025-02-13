@@ -10,8 +10,8 @@ import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { Sparkles, RefreshCcw, Import } from 'lucide-react';
-import modelsData from '../data/models.json';
+import { Sparkles, RefreshCcw, Import, Delete } from 'lucide-react';
+import { MODELS } from '../api/modelConfigs';
 import { getDummyTemplate } from '@/templates/dummyTemplates';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -55,6 +55,11 @@ const Editor = ({
     onPromptChange(prompt);
   }, [template, toneValue, creativeLicenseValue, customPrompt, onPromptChange]);
 
+  useEffect(() => {
+    const dummyTemplate = getDummyTemplate(selectedClient.name);
+    setTemplate(dummyTemplate);
+  }, [selectedClient.name]);
+
   const handleClientChange = (clientId: string) => {
     const client = clients.find((c) => c.id === clientId);
     if (client) {
@@ -67,7 +72,7 @@ const Editor = ({
   };
 
   const handleModelChange = (modelId: string) => {
-    const model = modelsData.models.find((m) => m.id === modelId);
+    const model = MODELS.find((m) => m.id === modelId);
     if (model) {
       onModelChange(model);
     }
@@ -81,9 +86,15 @@ const Editor = ({
     setToneValue(value[0]);
   };
 
-  const handleImportDummy = () => {
-    const dummyTemplate = getDummyTemplate(selectedClient.name);
-    setTemplate(dummyTemplate);
+  const handleTemplateButtonClick = () => {
+    if (template) {
+      // If there's text, clear it
+      setTemplate('');
+    } else {
+      // If it's empty, import dummy template
+      const dummyTemplate = getDummyTemplate(selectedClient.name);
+      setTemplate(dummyTemplate);
+    }
   };
 
   const handleGenerateClick = () => {
@@ -97,7 +108,7 @@ const Editor = ({
       <Tabs value={selectedClient.id} onValueChange={handleClientChange} className='w-full'>
         <TabsList className='w-full mb-2'>
           {clients.map((client) => (
-            <TabsTrigger key={client.id} className='w-full gap-3' value={client.id}>
+            <TabsTrigger key={client.id} className='w-full gap-3 aria-[selected=false]:grayscale' value={client.id}>
               <Avatar className='h-5 w-5'>
                 <AvatarImage src={client.logo} alt={client.name} />
               </Avatar>
@@ -124,7 +135,7 @@ const Editor = ({
                       </SelectValue>
                     </SelectTrigger>
                     <SelectContent>
-                      {modelsData.models.map((model) => (
+                      {MODELS.map((model) => (
                         <SelectItem key={model.id} value={model.id}>
                           <div className='flex flex-col'>
                             <span className='font-medium'>{model.name}</span>
@@ -170,26 +181,36 @@ const Editor = ({
                         onChange={(e) => setTemplate(e.target.value)}
                         className='min-h-[150px] bg-gray-50 hover:bg-white transition'
                       />
-                      <Button variant='outline' size='sm' className='self-end' onClick={handleImportDummy}>
-                        <Import className='h-4 w-4 mr-2 text-gray-400' />
-                        Import Dummy Data
+                      <Button variant='outline' size='sm' className='self-end' onClick={handleTemplateButtonClick}>
+                        {template ? (
+                          <>
+                            <Delete className='h-4 w-4 text-gray-400' />
+                            Clear Template
+                          </>
+                        ) : (
+                          <>
+                            <Import className='h-4 w-4 text-gray-400' />
+                            Import Dummy Data
+                          </>
+                        )}
                       </Button>
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
 
-                <div className='space-y-4'>
-                  <Label htmlFor='prompt'>Custom Prompt</Label>
-                  <Textarea
-                    id='prompt'
-                    placeholder='Enter custom prompt or instructions...'
-                    value={customPrompt}
-                    onChange={(e) => setCustomPrompt(e.target.value)}
-                    className='min-h-[100px] bg-gray-50 hover:bg-white transition'
-                  />
-                </div>
-
-                <div className='space-y-2'></div>
+                <Accordion type='single' collapsible>
+                  <AccordionItem value='item-1'>
+                    <AccordionTrigger>Custom Prompt</AccordionTrigger>
+                    <AccordionContent className='space-y-4 pt-0.25 px-0.25'>
+                      <Textarea
+                        placeholder='Enter custom prompt or instructions...'
+                        value={customPrompt}
+                        onChange={(e) => setCustomPrompt(e.target.value)}
+                        className='min-h-[100px] bg-gray-50 hover:bg-white transition'
+                      />
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
 
                 <Button variant={isGenerated ? 'outline' : 'default'} className='self-end' onClick={handleGenerateClick}>
                   {isGenerated ? (
@@ -200,7 +221,7 @@ const Editor = ({
                   ) : (
                     <>
                       <Sparkles size={16} className='mr-2' />
-                      <span>Generate Prompt</span>
+                      <span>Generate Email</span>
                     </>
                   )}
                 </Button>

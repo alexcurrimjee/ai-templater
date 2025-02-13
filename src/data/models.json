@@ -2,21 +2,21 @@
   "models": [
     {
       "id": "1",
+      "name": "claude-3-sonnet",
+      "company": "Anthropic",
+      "api": "https://api.anthropic.com/v1/engines/claude-3-sonnet/completions"
+    },
+    {
+      "id": "2",
       "name": "gpt-4o",
       "company": "OpenAI",
       "api": "https://api.openai.com/v1/engines/gpt-4o/completions"
     },
     {
-      "id": "2",
+      "id": "3",
       "name": "gpt-4o-mini",
       "company": "OpenAI",
       "api": "https://api.openai.com/v1/engines/gpt-4o-mini/completions"
-    },
-    {
-      "id": "3",
-      "name": "claude-3-sonnet",
-      "company": "Anthropic",
-      "api": "https://api.anthropic.com/v1/engines/claude-3-sonnet/completions"
     }
   ]
 }

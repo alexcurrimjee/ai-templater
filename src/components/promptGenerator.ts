@@ -29,7 +29,7 @@ customer {
   name: string;
   email: string;
   debt_amount: string;
-  ref_code: string; //6 character code used for customer authentication
+  ref_code: string; /*6 character code used for customer authentication*/
 }
 client {
   id: string;
