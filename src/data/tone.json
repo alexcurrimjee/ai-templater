@@ -2,23 +2,23 @@
   "levels": [
     {
       "id": "1",
-      "instruction": "Very nice, calm and serene"
+      "instruction": "Very nice, calm and serene. Address the customer by their first name."
     },
     {
       "id": "2",
-      "instruction": "Nice"
+      "instruction": "Nice. Address the customer by their first name."
     },
     {
       "id": "3",
-      "instruction": "Neutral"
+      "instruction": "Neutral. Address the customer by their first name."
     },
     {
       "id": "4",
-      "instruction": "Quite stern"
+      "instruction": "Quite stern. Address the customer by their last name."
     },
     {
       "id": "5",
-      "instruction": "Very severe and strict"
+      "instruction": "Very severe and strict. Address the customer by their last name."
     }
   ]
 }

@@ -8,9 +8,10 @@ interface GeneratedEmailRendererProps {
   code: string;
   customer: Customer;
   client: Client;
+  returnHTML?: boolean; // New prop to determine return type
 }
 
-const GeneratedEmailRenderer: React.FC<GeneratedEmailRendererProps> = ({ code, customer, client }) => {
+const GeneratedEmailRenderer: React.FC<GeneratedEmailRendererProps> = ({ code, customer, client, returnHTML = false }) => {
   const [renderedHtml, setRenderedHtml] = useState<string>('');
 
   const EmailTemplate = useMemo(() => {
@@ -65,10 +66,7 @@ const GeneratedEmailRenderer: React.FC<GeneratedEmailRendererProps> = ({ code, c
       }
 
       try {
-        // Create element with the template
         const emailElement = React.createElement(EmailTemplate, { customer, client });
-        console.log(emailElement);
-        // Render to HTML string
         const html = await render(emailElement, {
           pretty: true,
         });
@@ -83,7 +81,8 @@ const GeneratedEmailRenderer: React.FC<GeneratedEmailRendererProps> = ({ code, c
     renderEmail();
   }, [EmailTemplate, customer, client]);
 
-  return <iframe title='generated-email-preview' srcDoc={renderedHtml} className='bg-white h-full w-full' />;
+  // Return either the HTML string or the iframe based on the prop
+  return returnHTML ? renderedHtml : <iframe title='generated-email-preview' srcDoc={renderedHtml} className='bg-white h-full w-full' />;
 };
 
 export default GeneratedEmailRenderer;

@@ -167,7 +167,9 @@ const Preview = ({ emailComponent, customer, client, generatedPrompt, isGenerate
 
             <TabsContent value='html' className='m-0'>
               <div className='bg-white/5 rounded-lg p-4 overflow-auto h-[calc(100vh-8rem)]'>
-                <pre className='whitespace-pre-wrap font-mono text-sm'>{renderedEmail}</pre>
+                <pre className='whitespace-pre-wrap font-mono text-sm'>
+                  <GeneratedEmailRenderer code={generatedEmail} customer={customer} client={client} returnHTML={true} />
+                </pre>
               </div>
             </TabsContent>
           </Tabs>
