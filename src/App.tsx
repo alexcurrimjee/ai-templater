@@ -48,7 +48,7 @@ function App() {
   const [error, setError] = useState<string | null>(null);
 
   const [isTestMode, setIsTestMode] = useState(false);
-  const [apiResponse, setApiResponse] = useState<string>(''); /* For testing API reponse preview */
+  const [apiTestResponse, setApiTestResponse] = useState<string>(''); /* For testing API reponse preview */
 
   useEffect(() => {
     if (selectedCustomer) {
@@ -63,7 +63,7 @@ function App() {
     setIsGenerated(false);
     setError(null);
     if (!value) {
-      setApiResponse('');
+      setApiTestResponse('');
     }
   };
 
@@ -73,7 +73,7 @@ function App() {
     if (value) {
       if (isTestMode) {
         /* Test mode: use the textarea input  */
-        setGeneratedEmail(apiResponse);
+        setGeneratedEmail(apiTestResponse);
       } else {
         /* Live mode: use the API */
         setIsLoading(true);
@@ -110,7 +110,7 @@ function App() {
             onClientChange={setSelectedClient}
             clients={clientsData.clients}
             onPromptChange={setGeneratedPrompt}
-            onAPIResponseChange={setApiResponse}
+            onAPIResponseChange={setApiTestResponse}
             isGenerated={isGenerated}
             onGenerate={handleGenerate}
             selectedModel={selectedModel}
