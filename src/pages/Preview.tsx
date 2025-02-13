@@ -1,4 +1,3 @@
-import { ReactElement } from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -6,10 +5,8 @@ import { Send, Code, ClipboardCopy, Check } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import type { Customer, Client } from '../App';
 import GeneratedEmailRenderer from '@/components/GeneratedEmailRenderer';
-import { render } from '@react-email/render';
 
 interface PreviewProps {
-  emailComponent: ReactElement;
   customer: Customer;
   client: Client;
   generatedPrompt: string;
@@ -17,31 +14,21 @@ interface PreviewProps {
   apiResponse: string;
   isLoading: boolean;
   error: string | null;
+  template: string; // Add this
 }
 
-const Preview = ({ emailComponent, customer, client, generatedPrompt, isGenerated, apiResponse, isLoading, error }: PreviewProps) => {
+const Preview = ({ customer, client, generatedPrompt, template, isGenerated, apiResponse, isLoading, error }: PreviewProps) => {
   const [activeTab, setActiveTab] = useState('template');
-  const [renderedEmail, setRenderedEmail] = useState<string>('');
   const [codeFormat, setCodeFormat] = useState<'react' | 'html'>('react');
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
-    const code = codeFormat === 'react' ? apiResponse : renderedEmail;
+    const code = codeFormat === 'react' ? apiResponse : 'HTML';
+
     await navigator.clipboard.writeText(code);
     setCopied(true);
     setTimeout(() => setCopied(false), 3000);
   };
-
-  useEffect(() => {
-    const renderEmail = async () => {
-      const html = await render(emailComponent, {
-        pretty: true,
-      });
-      setRenderedEmail(html);
-    };
-
-    renderEmail();
-  }, [emailComponent]);
 
   useEffect(() => {
     if (isGenerated) {
@@ -120,7 +107,7 @@ const Preview = ({ emailComponent, customer, client, generatedPrompt, isGenerate
         )}
 
         <TabsContent value='template' className='m-0 w-full h-full'>
-          <iframe title='email-preview' srcDoc={renderedEmail} className='bg-white h-full w-full' />
+          <GeneratedEmailRenderer code={template} customer={customer} client={client} />
         </TabsContent>
         <TabsContent value='prompt' className='text-white px-6 pb-6 w-full h-full overflow-auto'>
           <pre className='whitespace-pre-wrap font-mono text-sm'>{generatedPrompt}</pre>

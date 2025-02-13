@@ -30,6 +30,8 @@ interface EditorProps {
   onModelChange: (model: Model) => void;
   onAPIResponseChange: (response: string) => void;
   onTestModeChange: (value: boolean) => void;
+  template: string;
+  onTemplateChange: (template: string) => void;
 }
 
 const Editor = ({
@@ -46,10 +48,11 @@ const Editor = ({
   onModelChange,
   onAPIResponseChange,
   onTestModeChange,
+  template,
+  onTemplateChange,
 }: EditorProps) => {
   const [creativeLicenseValue, setCreativeLicenseValue] = useState<number>(3);
   const [toneValue, setToneValue] = useState<number>(1);
-  const [template, setTemplate] = useState<string>('');
   const [customPrompt, setCustomPrompt] = useState<string>('');
 
   useEffect(() => {
@@ -64,8 +67,12 @@ const Editor = ({
 
   useEffect(() => {
     const dummyTemplate = getDummyTemplate(selectedClient.name);
-    setTemplate(dummyTemplate);
-  }, [selectedClient.name]);
+    onTemplateChange(dummyTemplate);
+  }, [selectedClient.name, onTemplateChange]);
+
+  const handleTemplateChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    onTemplateChange(e.target.value);
+  };
 
   const handleClientChange = (clientId: string) => {
     const client = clients.find((c) => c.id === clientId);
@@ -95,12 +102,10 @@ const Editor = ({
 
   const handleTemplateButtonClick = () => {
     if (template) {
-      // If there's text, clear it
-      setTemplate('');
+      onTemplateChange('');
     } else {
-      // If it's empty, import dummy template
       const dummyTemplate = getDummyTemplate(selectedClient.name);
-      setTemplate(dummyTemplate);
+      onTemplateChange(dummyTemplate);
     }
   };
 
@@ -182,7 +187,7 @@ const Editor = ({
                         id='prompt'
                         placeholder='What does a good template look like? Import it here...'
                         value={template}
-                        onChange={(e) => setTemplate(e.target.value)}
+                        onChange={handleTemplateChange}
                         className='min-h-[150px] bg-gray-50 hover:bg-white transition'
                       />
                       <Button variant='outline' size='sm' className='self-end' onClick={handleTemplateButtonClick}>
