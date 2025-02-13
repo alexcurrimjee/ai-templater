@@ -43,7 +43,7 @@ function App() {
   ));
   const [generatedPrompt, setGeneratedPrompt] = useState<string>('');
   const [isGenerated, setIsGenerated] = useState(false);
-  const [generatedEmail, setGeneratedEmail] = useState<string>('');
+  const [apiResponse, setApiResponse] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -59,7 +59,7 @@ function App() {
 
   const handleTestModeChange = (value: boolean) => {
     setIsTestMode(value);
-    setGeneratedEmail('');
+    setApiResponse('');
     setIsGenerated(false);
     setError(null);
     if (!value) {
@@ -73,7 +73,7 @@ function App() {
     if (value) {
       if (isTestMode) {
         /* Test mode: use the textarea input  */
-        setGeneratedEmail(apiTestResponse);
+        setApiResponse(apiTestResponse);
       } else {
         /* Live mode: use the API */
         setIsLoading(true);
@@ -84,7 +84,7 @@ function App() {
           if (response.error) {
             setError(response.error);
           } else {
-            setGeneratedEmail(response.content);
+            setApiResponse(response.content);
           }
         } catch (err) {
           setError('Failed to generate template');
@@ -94,7 +94,7 @@ function App() {
         }
       }
     } else {
-      setGeneratedEmail('');
+      setApiResponse('');
       setError(null);
     }
   };
@@ -127,7 +127,7 @@ function App() {
             customer={selectedCustomer}
             generatedPrompt={generatedPrompt}
             isGenerated={isGenerated}
-            generatedEmail={generatedEmail}
+            generatedEmail={apiResponse}
             isLoading={isLoading}
             error={error}
           />
