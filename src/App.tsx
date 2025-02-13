@@ -41,6 +41,7 @@ function App() {
   const [emailComponent, setEmailComponent] = useState<ReactElement>(() => (
     <OctopusEmail client={clientsData.clients[0]} customer={customersData.customers[0]} />
   ));
+
   const [generatedPrompt, setGeneratedPrompt] = useState<string>('');
   const [isGenerated, setIsGenerated] = useState(false);
   const [apiResponse, setApiResponse] = useState<string>('');

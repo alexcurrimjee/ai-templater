@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Send, Code, Copy, Check } from 'lucide-react';
+import { Send, Code, ClipboardCopy, Check } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import type { Customer, Client } from '../App';
 import GeneratedEmailRenderer from '@/components/GeneratedEmailRenderer';
@@ -155,7 +155,7 @@ const Preview = ({ emailComponent, customer, client, generatedPrompt, isGenerate
                 </TabsTrigger>
               </TabsList>
               <Button variant='secondary' size='sm' className='dark bg-white/15 hover:bg-white/25 mr-1' onClick={handleCopy}>
-                {copied ? <Check size={16} /> : <Copy size={16} />}
+                {copied ? <Check size={16} /> : <ClipboardCopy size={16} />}
               </Button>
             </div>
 
