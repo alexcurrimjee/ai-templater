@@ -21,9 +21,14 @@ const Preview = ({ customer, client, generatedPrompt, template, isGenerated, api
   const [activeTab, setActiveTab] = useState('template');
   const [codeFormat, setCodeFormat] = useState<'react' | 'html'>('react');
   const [copied, setCopied] = useState(false);
+  const [emailHtml, setEmailHtml] = useState<string>('');
+
+  const handleHtmlRender = (html: string) => {
+    setEmailHtml(html); // Save the generated email HTML
+  };
 
   const handleCopy = async () => {
-    const code = codeFormat === 'react' ? apiResponse : 'HTML';
+    const code = codeFormat === 'react' ? apiResponse : emailHtml;
 
     await navigator.clipboard.writeText(code);
     setCopied(true);
@@ -155,7 +160,7 @@ const Preview = ({ customer, client, generatedPrompt, template, isGenerated, api
             <TabsContent value='html' className='m-0'>
               <div className='bg-white/5 rounded-lg p-4 overflow-auto h-[calc(100vh-8rem)]'>
                 <pre className='whitespace-pre-wrap font-mono text-sm'>
-                  <GeneratedEmailRenderer code={apiResponse} customer={customer} client={client} returnHTML={true} />
+                  <GeneratedEmailRenderer code={apiResponse} customer={customer} client={client} returnHTML={true} onHtmlRender={handleHtmlRender} />
                 </pre>
               </div>
             </TabsContent>

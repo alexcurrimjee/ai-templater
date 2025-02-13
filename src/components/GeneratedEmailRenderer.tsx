@@ -8,10 +8,11 @@ interface GeneratedEmailRendererProps {
   code: string;
   customer: Customer;
   client: Client;
-  returnHTML?: boolean; // New prop to determine return type
+  returnHTML?: boolean;
+  onHtmlRender?: (html: string) => void; // New prop
 }
 
-const GeneratedEmailRenderer: React.FC<GeneratedEmailRendererProps> = ({ code, customer, client, returnHTML = false }) => {
+const GeneratedEmailRenderer: React.FC<GeneratedEmailRendererProps> = ({ code, customer, client, returnHTML = false, onHtmlRender }) => {
   const [renderedHtml, setRenderedHtml] = useState<string>('');
 
   const EmailTemplate = useMemo(() => {
@@ -57,6 +58,12 @@ const GeneratedEmailRenderer: React.FC<GeneratedEmailRendererProps> = ({ code, c
       return null;
     }
   }, [code]);
+
+  useEffect(() => {
+    if (onHtmlRender) {
+      onHtmlRender(renderedHtml); // Send the rendered HTML to the parent
+    }
+  }, [renderedHtml, onHtmlRender]);
 
   useEffect(() => {
     const renderEmail = async () => {
