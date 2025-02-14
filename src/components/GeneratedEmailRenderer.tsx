@@ -68,7 +68,9 @@ const GeneratedEmailRenderer: React.FC<GeneratedEmailRendererProps> = ({ code, c
   useEffect(() => {
     const renderEmail = async () => {
       if (!EmailTemplate) {
-        setRenderedHtml('<div>No generated email to preview.</div>');
+        setRenderedHtml(
+          '<div style="font-Family:monospace; color: gray; margin-top:3rem; text-align:center; width: 100%;">No generated email to preview.</div>'
+        );
         return;
       }
 
