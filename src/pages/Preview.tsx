@@ -8,6 +8,7 @@ import type { Customer, Client } from '../App';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import sendgrid from '@sendgrid/mail';
+import { API_URL } from '@/utils/api';
 
 import GeneratedEmailRenderer from '@/components/GeneratedEmailRenderer';
 
@@ -64,8 +65,6 @@ const Preview = ({ customer, client, generatedPrompt, template, isGenerated, api
 
     setIsSending(true);
     try {
-      const API_URL = import.meta.env.DEV ? 'http://localhost:3001' : 'https://email-generator-backend.fly.dev'; // Replace with your actual backend URL
-
       const response = await fetch(`${API_URL}/api/send-email`, {
         method: 'POST',
         headers: {

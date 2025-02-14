@@ -12,7 +12,7 @@ app.use(
   cors({
     origin: [
       'http://localhost:5173', // Local development
-      'https://email-generator-backend.fly.dev', // Your frontend Fly.io URL
+      process.env.FRONTEND_URL!, // Your frontend Fly.io URL
     ],
   })
 );
