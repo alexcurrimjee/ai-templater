@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 .env
+email-generator-backend/.env
+/email-generator-backend/.env
 
 # Editor directories and files
 .vscode/*
