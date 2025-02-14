@@ -90,9 +90,9 @@ function App() {
   };
 
   return (
-    <div className='w-full h-full min-h-screen'>
+    <div className='w-full h-screen'>
       <ResizablePanelGroup direction='horizontal'>
-        <ResizablePanel minSize={25} defaultSize={33} className='bg-white overflow-y-auto no-scrollbar p-6'>
+        <ResizablePanel minSize={25} defaultSize={33} className='bg-white p-6 h-full overflow-auto! no-scrollbar'>
           <Editor
             customer={selectedCustomer}
             onCustomerChange={setSelectedCustomer}
