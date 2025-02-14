@@ -13,7 +13,9 @@ export async function generateTemplate(prompt: string, modelId: string): Promise
   }
 
   try {
-    const response = await fetch('http://localhost:3001/api/generate', {
+    const API_URL = import.meta.env.DEV ? 'http://localhost:3001' : 'https://email-generator-backend.fly.dev';
+
+    const response = await fetch(`${API_URL}/api/generate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

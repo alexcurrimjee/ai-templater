@@ -10,7 +10,10 @@ const app = express();
 
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: [
+      'http://localhost:5173', // Local development
+      'https://email-generator-backend.fly.dev', // Your frontend Fly.io URL
+    ],
   })
 );
 app.use(express.json());

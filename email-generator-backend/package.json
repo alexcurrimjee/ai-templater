@@ -12,12 +12,15 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@react-email/components": "^0.0.33",
+    "@sendgrid/mail": "^8.1.4",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "node-fetch": "^2.7.0"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.7.8",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.2",

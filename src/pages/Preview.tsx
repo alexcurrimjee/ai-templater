@@ -64,7 +64,9 @@ const Preview = ({ customer, client, generatedPrompt, template, isGenerated, api
 
     setIsSending(true);
     try {
-      const response = await fetch('http://localhost:3001/api/send-email', {
+      const API_URL = import.meta.env.DEV ? 'http://localhost:3001' : 'https://email-generator-backend.fly.dev'; // Replace with your actual backend URL
+
+      const response = await fetch(`${API_URL}/api/send-email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
