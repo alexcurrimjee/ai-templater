@@ -1,11 +1,13 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Send, Code, ClipboardCopy, Check, Columns2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import type { Customer, Client } from '../App';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import sendgrid from '@sendgrid/mail';
 
 import GeneratedEmailRenderer from '@/components/GeneratedEmailRenderer';
 
@@ -25,6 +27,10 @@ const Preview = ({ customer, client, generatedPrompt, template, isGenerated, api
   const [codeFormat, setCodeFormat] = useState<'react' | 'html'>('react');
   const [copied, setCopied] = useState(false);
   const [emailHtml, setEmailHtml] = useState<string>('');
+  const { toast } = useToast();
+  const [isSending, setIsSending] = useState(false);
+
+  sendgrid.setApiKey(import.meta.env.VITE_SENDGRID_API_KEY);
 
   const handleHtmlRender = (html: string) => {
     setEmailHtml(html); // Save the generated email HTML
@@ -45,6 +51,50 @@ const Preview = ({ customer, client, generatedPrompt, template, isGenerated, api
       setActiveTab('template');
     }
   }, [isGenerated]);
+
+  const handleSendEmail = async () => {
+    if (!emailHtml) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Email content not ready. Please try again.',
+      });
+      return;
+    }
+
+    setIsSending(true);
+    try {
+      const response = await fetch('http://localhost:3001/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          html: emailHtml,
+          customer,
+          client,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to send email');
+      }
+
+      toast({
+        title: 'Email Sent Successfully',
+        description: `Email has been sent to ${customer.email}`,
+      });
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: error instanceof Error ? error.message : 'Failed to send email',
+      });
+    } finally {
+      setIsSending(false);
+    }
+  };
 
   return (
     <div className='h-full bg-container-dark'>
@@ -126,10 +176,12 @@ const Preview = ({ customer, client, generatedPrompt, template, isGenerated, api
                       </div>
                     </div>
                   </div>
-                  <Button disabled={isGenerated ? false : true}>
-                    <Send size={16} />
-                    <span>Send</span>
-                  </Button>
+                  {activeTab === 'generated' && (
+                    <Button disabled={isGenerated ? false : true} onClick={() => handleSendEmail()}>
+                      {isSending ? <div className='animate-spin rounded-full h-4 w-4 border-b-2 border-white' /> : <Send size={16} />}
+                      <span>{isSending ? 'Sending...' : 'Send'}</span>
+                    </Button>
+                  )}
                 </div>
               </>
             )}
@@ -149,7 +201,7 @@ const Preview = ({ customer, client, generatedPrompt, template, isGenerated, api
                 <div className='text-red-500 p-6'>{error}</div>
               ) : apiResponse ? (
                 /* Generate the email using API reponse here component */
-                <GeneratedEmailRenderer code={apiResponse} customer={customer} client={client} />
+                <GeneratedEmailRenderer code={apiResponse} customer={customer} client={client} onHtmlRender={handleHtmlRender} />
               ) : (
                 <div className='text-gray-400 text-center'>Generate a template to see the preview</div>
               )}
@@ -193,13 +245,7 @@ const Preview = ({ customer, client, generatedPrompt, template, isGenerated, api
                 <TabsContent value='html' className='m-0'>
                   <div className='bg-white/5 rounded-lg p-4 overflow-y-scroll h-[calc(100vh-8rem)] no-scrollbar'>
                     <pre className='whitespace-pre-wrap font-mono text-sm'>
-                      <GeneratedEmailRenderer
-                        code={apiResponse}
-                        customer={customer}
-                        client={client}
-                        returnHTML={true}
-                        onHtmlRender={handleHtmlRender}
-                      />
+                      <GeneratedEmailRenderer code={apiResponse} customer={customer} client={client} returnHTML={true} />
                     </pre>
                   </div>
                 </TabsContent>
