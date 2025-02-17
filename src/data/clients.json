@@ -3,21 +3,21 @@
     {
       "id": "1",
       "name": "Octopus",
-      "logo": "./src/assets/octopus.png",
+      "logo": "/images/octopus.png",
       "website": "https://octopus.energy/",
       "industry": "Energy"
     },
     {
       "id": "2",
       "name": "Intrum",
-      "logo": "./src/assets/intrum.png",
+      "logo": "/images/intrum.png",
       "website": "https://www.intrum.com/",
       "industry": "Debt purchaser"
     },
     {
       "id": "3",
       "name": "Clearpay",
-      "logo": "./src/assets/clearpay.png",
+      "logo": "/images/clearpay.png",
       "website": "https://www.clearpay.co.uk/",
       "industry": "BNPL"
     }

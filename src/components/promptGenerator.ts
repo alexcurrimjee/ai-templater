@@ -19,7 +19,7 @@ ${creativeInstruction}
 ${toneInstruction}
 ${customPrompt ? `\nAdditional instructions:\n${customPrompt}\n` : ''}
 Template (existing template that we consider as good):
-\`\`\`jsx
+\`\`\`
 ${template}
 \`\`\`
 
@@ -38,7 +38,7 @@ client {
   website - string
 }
 
-Output: Please provide a simple React Email template. Use ONLY React Email components (Html, Head, Preview, Body, Container, Section, Text, Button, etc). Return ONLY the component definition in this exact format:
+Output: Always return the response in the exact format below. Do not add any extra text, explanation, or formatting. The response must be a single React component definition using only React Email components (Html, Head, Preview, Body, Container, Section, Text, Button, etc), following the structure, outlined in this format: :
 
 ({ customer, client }) => {
   const main = {

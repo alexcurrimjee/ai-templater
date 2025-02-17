@@ -26,7 +26,7 @@ export function CustomerCard({ customer, onEdit }: CustomerCardProps) {
   return (
     <div className='w-full'>
       <Select defaultValue={customer?.id} onValueChange={handleValueChange}>
-        <SelectTrigger className='w-full bg-white'>
+        <SelectTrigger className='w-full bg-white rounded-lg shadow-none'>
           <SelectValue placeholder='Select a customer'>
             {customer && (
               <div className='flex items-center gap-2'>

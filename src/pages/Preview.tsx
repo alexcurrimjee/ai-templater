@@ -106,7 +106,7 @@ const Preview = ({ customer, client, generatedPrompt, template, isGenerated, api
             onValueChange={setActiveTab}
             className={`w-full ${activeTab === 'prompt' || activeTab === 'code' ? 'h-screen' : 'h-full'} flex flex-col items-center`}>
             <div className='realtive w-full h-12 shrink-0 flex flex-row justify-center items-center gap-4'>
-              <TabsList className='h-8 p-0 bg-white/0 border border-white/35 overflow-hidden rounded-md'>
+              <TabsList className='h-8 p-0 bg-white/0 border border-white/35 overflow-hidden rounded-full divide-x divide-white/15'>
                 <TabsTrigger
                   value='template'
                   className='aria-[selected=false]:text-gray-100 aria-[selected=false]:hover:bg-white/10 data-[state="active"]:bg-white/20! data-[state="active"]:text-white! h-full py-0 px-5 rounded-none'>
@@ -118,7 +118,8 @@ const Preview = ({ customer, client, generatedPrompt, template, isGenerated, api
                   Prompt
                 </TabsTrigger>
               </TabsList>
-              <TabsList className={`${!isGenerated && 'hidden'} h-8 p-0 bg-white/0 border border-white/35 overflow-hidden rounded-md`}>
+              <TabsList
+                className={`${!isGenerated && 'hidden'} h-8 p-0 bg-white/0 border border-white/35 overflow-hidden rounded-full divide-x divide-white/15`}>
                 <TabsTrigger
                   value='generated'
                   className='aria-[selected=false]:text-gray-100 aria-[selected=false]:hover:bg-white/10 data-[state="active"]:bg-white/20! data-[state="active"]:text-white! h-full py-0 px-5 rounded-none'
@@ -137,7 +138,7 @@ const Preview = ({ customer, client, generatedPrompt, template, isGenerated, api
                 <Tooltip delayDuration={10}>
                   <TooltipTrigger>
                     <DrawerTrigger>
-                      <Button variant='secondary' size='sm' className='dark border border-white/25 bg-white/0 hover:bg-white/20'>
+                      <Button variant='secondary' size='sm' className='dark border border-white/35 bg-white/0 hover:bg-white/20 rounded-full'>
                         <Columns2 size={16} />
                       </Button>
                     </DrawerTrigger>
@@ -153,7 +154,7 @@ const Preview = ({ customer, client, generatedPrompt, template, isGenerated, api
               <></>
             ) : (
               <>
-                <div className='w-full bg-white rounded-t-xl flex flex-row justify-between py-3 px-6 border-b'>
+                <div className='w-full bg-white rounded-t-2xl flex flex-row justify-between py-3 px-6 border-b'>
                   <div className='flex flex-row items-start gap-4'>
                     <Avatar className='h-12 w-12 border'>
                       <AvatarImage src={client.logo} alt={client.name} />
@@ -178,7 +179,7 @@ const Preview = ({ customer, client, generatedPrompt, template, isGenerated, api
                     </div>
                   </div>
                   {activeTab === 'generated' && (
-                    <Button disabled={isGenerated ? false : true} onClick={() => handleSendEmail()}>
+                    <Button disabled={isGenerated ? false : true} onClick={() => handleSendEmail()} className='rounded-full'>
                       {isSending ? <div className='animate-spin rounded-full h-4 w-4 border-b-2 border-white' /> : <Send size={16} />}
                       <span>{isSending ? 'Sending...' : 'Send'}</span>
                     </Button>
@@ -207,7 +208,7 @@ const Preview = ({ customer, client, generatedPrompt, template, isGenerated, api
                 <div className='text-gray-400 text-center'>Generate a template to see the preview</div>
               )}
             </TabsContent>
-            <TabsContent value='code' className='text-white w-full border border-white/25 rounded-lg overflow-hidden max-w-2xl'>
+            <TabsContent value='code' className='text-white w-full border border-white/25 rounded-2xl overflow-hidden max-w-2xl'>
               <Tabs defaultValue='react' onValueChange={(value) => setCodeFormat(value as 'react' | 'html')} className='w-full'>
                 <div className='flex justify-between items-center mb-0 border-b border-white/15'>
                   <TabsList className='h-10 p-0 bg-white/0'>
@@ -226,7 +227,7 @@ const Preview = ({ customer, client, generatedPrompt, template, isGenerated, api
                   <Tooltip delayDuration={10}>
                     <TooltipTrigger>
                       <DrawerTrigger>
-                        <Button variant='secondary' size='sm' className='dark bg-white/15 hover:bg-white/25 mr-1' onClick={handleCopy}>
+                        <Button variant='secondary' size='sm' className='dark bg-white/15 hover:bg-white/25 mr-2 rounded-full' onClick={handleCopy}>
                           {copied ? <Check size={16} /> : <ClipboardCopy size={16} />}
                         </Button>
                       </DrawerTrigger>

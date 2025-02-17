@@ -3,6 +3,7 @@ import * as Babel from '@babel/standalone';
 import { render } from '@react-email/render';
 import { Tailwind, Html, Head, Body, Container, Preview, Section, Img, Heading, Text, Link, Hr, Button } from '@react-email/components';
 import type { Customer, Client } from '../App';
+import { cleanGeneratedCode } from '@/utils/cleanResponse';
 
 interface GeneratedEmailRendererProps {
   code: string;
@@ -18,11 +19,7 @@ const GeneratedEmailRenderer: React.FC<GeneratedEmailRendererProps> = ({ code, c
   const EmailTemplate = useMemo(() => {
     if (!code) return null;
     try {
-      const cleanCode = code
-        .replace(/\\n/g, '\n')
-        .replace(/\\"/g, '"')
-        .replace(/export default /, '')
-        .replace(/const EmailTemplate = /, '');
+      const cleanCode = cleanGeneratedCode(code);
 
       const transformed = Babel.transform(cleanCode, {
         presets: ['react'],

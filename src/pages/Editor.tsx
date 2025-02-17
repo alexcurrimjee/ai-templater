@@ -114,13 +114,13 @@ const Editor = ({
   };
 
   return (
-    <div className='w-full bg-white flex flex-col gap-4'>
+    <div className='w-full bg-white flex flex-col gap-4 '>
       <CustomerCard customer={customer} onEdit={handleCustomerChange} />
 
       <Tabs value={selectedClient.id} onValueChange={handleClientChange} className='w-full'>
-        <TabsList className='w-full mb-2'>
+        <TabsList className='w-full mb-2 h-9 rounded-full'>
           {clients.map((client) => (
-            <TabsTrigger key={client.id} className='w-full gap-3 aria-[selected=false]:grayscale' value={client.id}>
+            <TabsTrigger key={client.id} className='w-full gap-3 aria-[selected=false]:grayscale rounded-full' value={client.id}>
               <Avatar className='h-5 w-5'>
                 <AvatarImage src={client.logo} alt={client.name} />
               </Avatar>
@@ -131,19 +131,19 @@ const Editor = ({
 
         {clients.map((client) => (
           <TabsContent key={client.id} value={client.id}>
-            <Card className='pt-6'>
+            <Card className='pt-6 bg-gray-50 shadow-none rounded-3xl'>
               <CardContent className='space-y-4 flex flex-col'>
                 <div className='gap-y-4'>
                   <Label htmlFor='model-select'>AI Model</Label>
                   <Select onValueChange={handleModelChange} defaultValue={selectedModel.id} value={selectedModel.id}>
-                    <SelectTrigger className='w-full bg-gray-50 hover:bg-white transition' id='model-select'>
+                    <SelectTrigger className='w-full bg-white transition rounded-lg shadow-none' id='model-select'>
                       <SelectValue>
                         <div className='flex flex-col'>
                           <span className='font-medium'>{selectedModel.name}</span>
                         </div>
                       </SelectValue>
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className='rounded-xl'>
                       {MODELS.map((model) => (
                         <SelectItem key={model.id} value={model.id}>
                           <div className='flex flex-col'>
@@ -188,9 +188,9 @@ const Editor = ({
                         placeholder='What does a good template look like? Import it here...'
                         value={template}
                         onChange={handleTemplateChange}
-                        className='min-h-[150px] bg-gray-50 hover:bg-white transition'
+                        className='min-h-[150px] bg-white rounded-xl shadow-none transition'
                       />
-                      <Button variant='outline' size='sm' className='self-end' onClick={handleTemplateButtonClick}>
+                      <Button variant='outline' size='sm' className='self-end shadow-none rounded-full' onClick={handleTemplateButtonClick}>
                         {template ? (
                           <>
                             <Delete className='h-4 w-4 text-gray-400' />
@@ -215,13 +215,13 @@ const Editor = ({
                         placeholder='Enter custom prompt or instructions...'
                         value={customPrompt}
                         onChange={(e) => setCustomPrompt(e.target.value)}
-                        className='min-h-[100px] bg-gray-50 hover:bg-white transition'
+                        className='min-h-[100px] bg-white rounded-xl shadow-none transition'
                       />
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
 
-                <Button variant={isGenerated ? 'outline' : 'default'} className='self-end' onClick={handleGenerateClick}>
+                <Button size='lg' variant={isGenerated ? 'outline' : 'default'} className='self-end rounded-full' onClick={handleGenerateClick}>
                   {isGenerated ? (
                     <>
                       <RefreshCcw size={16} className='mr-2' />
