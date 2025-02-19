@@ -12,16 +12,20 @@ export function generatePrompt({ tone, template, creativeLicense, customPrompt =
   const creativeInstruction = `Your creative license: ${creativeLicenseData.levels[creativeLicense - 1].instruction}`;
   const toneInstruction = `The tone to use: ${toneData.levels[tone - 1].instruction}`;
 
-  return `We are Ophelos, an empathetic debt collection company. We are tasked by clients to help our customers pay off debts that they owe to the company. You are tasked with generating email templates that will maximise the chances of customer engaging.
+  return `Who we are: We are Ophelos, an empathetic debt collection company. We are tasked by clients to help our customers pay off debts that they owe to the company. 
+  
+Your task: You are a best in class email developer, you are tasked with generating a new email template that will maximise the chances of customer engaging with us. 
 
 ${creativeInstruction}
 
 ${toneInstruction}
-${customPrompt ? `\nAdditional instructions:\n${customPrompt}\n` : ''}
-Template (existing template that we consider as good):
+
+Here is an existing template that we created in the past that is considered good:
 \`\`\`
 ${template}
 \`\`\`
+
+${customPrompt ? `\nAdditional instructions:\n${customPrompt}\n` : ''}
 
 Data: You have the following data at your disposal, you are not allowed to use anything else: 
 customer {
@@ -47,11 +51,9 @@ Output: Always return the response in the exact format below. Do not add any ext
   // other style objects
   
   return (
-  <Tailwind>
     <Html>
     // template content
     </Html>
-  </Tailwind>
   );
 }
 
@@ -61,9 +63,10 @@ Important:
 - Do not use any external libraries
 - Return only the component definition
 
-- You are required to display the footer content exactly as it is
-- You must always use the Ophelos Logo somewhere in the header
-- You are not allowed to use the colour red or uppercase text
-- Emails must contain the ref_code a a clear call to action to access the login page
+- You are always required to display the footer content in the email
+- You must always use the Company Logo (provided in the template) somewhere in the header
+- If you were to use the colour red, instead replace it with our primary colour #FF8D5E
+- Emails should avoid all caps
+- Emails must always contain the ref_code and a clear call to action to access the login page
 `;
 }

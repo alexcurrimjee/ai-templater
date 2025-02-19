@@ -2,28 +2,18 @@
   "levels": [
     {
       "id": "1",
-      "instruction": "Keep extremely close to the original template. Only make essential copy adjustments for accuracy. Do not change any layout or visual elements",
-      "description": "Conservative: Minimal changes to the template"
+      "name": "Conservative",
+      "instruction": "Maintain exact visual layout and structure of the template. Focus only on optimizing the copy while preserving all design elements, images, spacing, and formatting. You may adjust wording for clarity and accuracy, correct grammatical issues, and ensure consistent terminology. Do not add or remove sections, images, change formatting, or alter any visual elements."
     },
     {
       "id": "2",
-      "instruction": "Stay very close to the original template but allow for improvements in flow and readability. You can make adjustments to improve clarity or engagement, but maintain the overall structure and key messages. Keep the same tone and style, with only slight variations where it enhances the message & layout.",
-      "description": "Subtle: Minor refinements allowed"
+      "name": "Balanced",
+      "instruction": "Use the template as a foundation while implementing significant visual and content improvements. Enhance the design by incorporating: 1) Strategic use of color for emphasis and hierarchy, 2) Appropriate emojis to increase engagement, 3) Visual callouts or alert boxes for key information, 4) Custom formatting for quotes or testimonials, 5) Thoughtful use of bold and italic text for emphasis. The layout should be optimized for both desktop and mobile viewing. Core sections can be restructured for better flow and visual appeal. You must maintain professional standards while creating a visually engaging experience. Every enhancement should serve a clear purpose in improving communication effectiveness."
     },
     {
       "id": "3",
-      "instruction": "Use the template as a strong foundation but feel free to enhance it. You can rephrase sections to improve engagement while keeping the core message and structure. Maintain the general flow but add your own touch to make it more compelling. The key messages should remain the same but can be expressed in fresh ways. you should still use the ain image of the template.",
-      "description": "Balanced: Moderate creativity while respecting template"
-    },
-    {
-      "id": "4",
-      "instruction": "Use the template as inspiration but feel free to be creative. You can significantly rephrase content, adjust the structure, and enhance the messaging while keeping the core purpose. Feel free to add new elements or sections if they enhance the message. The tone can be adjusted to better suit the context while maintaining professionalism.",
-      "description": "Creative: Significant creative freedom"
-    },
-    {
-      "id": "5",
-      "instruction": "Use the template only as a reference for the core message and objective. You have full creative freedom to reimagine the email while maintaining its purpose. Feel free to completely restructure, rephrase, and enhance the content. You can experiment with different approaches, tones, and structures as long as they align with professional communication standards and the company's core message.",
-      "description": "Innovative: Maximum creative freedom"
+      "name": "Innovative",
+      "instruction": "Create a premium, highly polished email experience with sophisticated design elements. You have complete creative freedom to implement: 1) Custom color schemes that enhance brand identity, 2) Advanced visual hierarchies using size, color, and spacing, 3) Creative use of emojis, icons, and visual elements to enhance engagement, 4) Dynamic content blocks with clear visual separation, 5) Attention-grabbing headers and subheaders, 6) Custom-styled CTAs and action items, 7) Innovative formatting for key statistics or metrics, 8) Strategic use of whitespace for visual impact. The final product must be visually striking while maintaining utmost professionalism. Every design choice should enhance readability and engagement while creating a memorable, premium feel. The email should stand out as a high-end communication piece that reflects excellence in both content and design."
     }
   ]
 }

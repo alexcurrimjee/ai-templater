@@ -2,23 +2,18 @@
   "levels": [
     {
       "id": "1",
-      "instruction": "Very nice, calm and serene. Address the customer by their first name."
+      "name": "Warm & Supportive",
+      "instruction": "Maintain a friendly, welcoming tone that builds rapport. Address the customer by their first name. Use encouraging and positive language that makes the reader feel valued and supported. Focus on being helpful and understanding while maintaining professional boundaries. Employ warm, inclusive language that fosters connection while remaining respectful and clear."
     },
     {
       "id": "2",
-      "instruction": "Nice. Address the customer by their first name."
+      "name": "Professional & Direct",
+      "instruction": "Strike a balance between warmth and authority. Address the customer by their first name, but maintain a clear professional distance. Use straightforward, efficient language that respects the reader's time while remaining courteous. Focus on clarity and precision in communication while keeping a neutral, business-appropriate tone."
     },
     {
       "id": "3",
-      "instruction": "Neutral. Address the customer by their first name."
-    },
-    {
-      "id": "4",
-      "instruction": "Quite stern. Address the customer by their last name."
-    },
-    {
-      "id": "5",
-      "instruction": "Very severe and strict. Address the customer by their last name."
+      "name": "Formal & Instructive",
+      "instruction": "Adopt a strict, authoritative tone that emphasizes urgency and importance while maintaining professional respect. Address the customer by their last name with prefix Mr./Ms./Mx. Use precise, firm language that underscores time-sensitivity and necessary actions. Technical terms should be used where appropriate to reinforce expertise. Communications should be direct, unambiguous, and emphasize immediate attention or response requirements. While stern, the tone must remain professional and avoid antagonism. The message should clearly convey the gravity of the situation and the importance of prompt action."
     }
   ]
 }

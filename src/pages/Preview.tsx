@@ -197,7 +197,9 @@ const Preview = ({ customer, client, generatedPrompt, template, isGenerated, api
             <TabsContent value='generated' className='m-0 w-full h-full bg-gray-50'>
               {isLoading ? (
                 <div className='flex items-center justify-center h-full'>
-                  <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary'></div>
+                  <div className='animate-pulse  w-full max-w-sm '>
+                    <img src='/b2c_orb.png' alt='Ophelos' className='w-full h-full' />
+                  </div>
                 </div>
               ) : error ? (
                 <div className='text-red-500 p-6'>{error}</div>

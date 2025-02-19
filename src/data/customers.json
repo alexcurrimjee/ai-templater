@@ -6,7 +6,7 @@
       "last_name": "Currimjee",
       "email": "alex@ophelos.com",
       "ref_code": "ABC123",
-      "debt_amount": "£504.56"
+      "debt_amount": "£577.54"
     },
     {
       "id": "2",
@@ -14,7 +14,7 @@
       "last_name": "Chong",
       "email": "paul.chong@ophelos.com",
       "ref_code": "ABC123",
-      "debt_amount": "£120.32"
+      "debt_amount": "£577.54"
     },
     {
       "id": "3",
@@ -22,7 +22,7 @@
       "last_name": "Ghaiumy",
       "email": "amon@ophelos.com",
       "ref_code": "ABC123",
-      "debt_amount": "£1,234.56"
+      "debt_amount": "£577.54"
     },
     {
       "id": "4",
@@ -30,7 +30,7 @@
       "last_name": "Rubio",
       "email": "andres.rubio@intrum.com",
       "ref_code": "ABC123",
-      "debt_amount": "£34.56"
+      "debt_amount": "£577.54"
     }
   ]
 }

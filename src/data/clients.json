@@ -13,13 +13,6 @@
       "logo": "/images/intrum.png",
       "website": "https://www.intrum.com/",
       "industry": "Debt purchaser"
-    },
-    {
-      "id": "3",
-      "name": "Clearpay",
-      "logo": "/images/clearpay.png",
-      "website": "https://www.clearpay.co.uk/",
-      "industry": "BNPL"
     }
   ]
 }

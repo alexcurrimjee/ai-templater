@@ -51,7 +51,7 @@ const Editor = ({
   template,
   onTemplateChange,
 }: EditorProps) => {
-  const [creativeLicenseValue, setCreativeLicenseValue] = useState<number>(3);
+  const [creativeLicenseValue, setCreativeLicenseValue] = useState<number>(1);
   const [toneValue, setToneValue] = useState<number>(1);
   const [customPrompt, setCustomPrompt] = useState<string>('');
 
@@ -158,9 +158,9 @@ const Editor = ({
                 <div className='space-y-4'>
                   <div className='flex justify-between items-center'>
                     <Label>Creative License</Label>
-                    <span className='text-sm text-gray-500'>{creativeLicenseValue}/5</span>
+                    <span className='text-sm text-gray-500'>Level: {creativeLicenseValue}</span>
                   </div>
-                  <Slider min={1} max={5} step={1} value={[creativeLicenseValue]} onValueChange={handleCreativeLicenseChange} />
+                  <Slider min={1} max={3} step={1} value={[creativeLicenseValue]} onValueChange={handleCreativeLicenseChange} />
                   <div className='w-full flex flex-row justify-between'>
                     <span className='h-9 w-9 rounded-full bg-primary/10 flex justify-center items-center text-xl'>⛓️</span>
                     <span className='h-9 w-9 rounded-full bg-primary/10 flex justify-center items-center text-xl'>💡</span>
@@ -170,9 +170,9 @@ const Editor = ({
                 <div className='space-y-4'>
                   <div className='flex justify-between items-center'>
                     <Label>Tone</Label>
-                    <span className='text-sm text-gray-500'>{toneValue}/5</span>
+                    <span className='text-sm text-gray-500'>Level: {toneValue}</span>
                   </div>
-                  <Slider min={1} max={5} step={1} value={[toneValue]} onValueChange={handleToneChange} />
+                  <Slider min={1} max={3} step={1} value={[toneValue]} onValueChange={handleToneChange} />
                   <div className='w-full flex flex-row justify-between'>
                     <span className='h-9 w-9 rounded-full bg-primary/10 flex justify-center items-center text-xl'>😊</span>
                     <span className='h-9 w-9 rounded-full bg-primary/10 flex justify-center items-center text-xl'>😡</span>
